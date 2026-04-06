@@ -1,0 +1,159 @@
+<mxfile>
+  <diagram id="page1" name="リビング戦略部 全体図">
+    <mxGraphModel pageWidth="1400" pageHeight="900" grid="0" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="10" value="&lt;b&gt;リビング戦略部&lt;/b&gt;&lt;br&gt;部長: 大橋太郎" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="560" y="50" width="280" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" value="&lt;b&gt;リビング戦略G&lt;/b&gt;&lt;br&gt;GM: 川田亮" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="160" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="12" value="&lt;b&gt;ビジネス変革推進G&lt;/b&gt;&lt;br&gt;GM: 畑憲太郎" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="13" value="&lt;b&gt;マーケティング開発室&lt;/b&gt;&lt;br&gt;室長: 中井恒介" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="600" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="14" value="&lt;b&gt;ブランディング推進G&lt;/b&gt;&lt;br&gt;GM: 佐藤良介" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="820" y="220" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" value="&lt;b&gt;デジタルプラットフォームG&lt;/b&gt;&lt;br&gt;GM: 及川敬仁&lt;br&gt;（詳細はPage 2）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="210" width="200" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="20" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="10" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="21" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="10" target="12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="22" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="10" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="10" target="14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="24" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="10" target="15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page2" name="デジタルプラットフォームG 詳細">
+    <mxGraphModel pageWidth="1400" pageHeight="950" grid="0" background="#ffffff">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="100" value="&lt;b&gt;デジタルプラットフォームG&lt;/b&gt;&lt;br&gt;GM: 及川敬仁" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="550" y="30" width="300" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="101" value="&lt;b&gt;ビジネス推進T&lt;/b&gt;&lt;br&gt;TL: 柏木隆矢&lt;br&gt;CS / 業務運営" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="108" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="102" value="&lt;b&gt;プロダクトMT&lt;/b&gt;&lt;br&gt;TL: 髙松直也&lt;br&gt;戦略・ロードマップ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="278" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="103" value="&lt;b&gt;デリバリーMT&lt;/b&gt;&lt;br&gt;TL: 杉﨑洋平&lt;br&gt;スループット確保" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="448" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="104" value="&lt;b&gt;CXデジタルPT&lt;/b&gt;&lt;br&gt;TL: 吉田英司&lt;br&gt;EAプロジェクト推進" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="618" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="105" value="&lt;b&gt;サービスデザインT&lt;/b&gt;&lt;br&gt;TL: 片山心平&lt;br&gt;サービスデザイン" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="788" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="106" value="&lt;b&gt;UIUXデザインT&lt;/b&gt;&lt;br&gt;TL: 檜垣佳太&lt;br&gt;UIUXデザイン" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="958" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="107" value="&lt;b&gt;SETチーム&lt;/b&gt;&lt;br&gt;TL: 中島潤耶&lt;br&gt;内製開発" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1128" y="155" width="165" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="110" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="101" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="111" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="102" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="112" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="103" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="113" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="104" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="114" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="105" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="115" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="106" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="116" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="100" target="107" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="148" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF3FA;strokeColor=#CADCFC;opacity=50;" vertex="1" parent="1">
+          <mxGeometry x="280" y="310" width="840" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="149" value="開発スクラムチーム（別レイヤー）" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#004098;" vertex="1" parent="1">
+          <mxGeometry x="290" y="315" width="280" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="151" value="&lt;b&gt;Naikist&lt;/b&gt;&lt;br&gt;Webフロント（内製）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="290" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="152" value="&lt;b&gt;Fluppuccino&lt;/b&gt;&lt;br&gt;モバイルアプリ（内製）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="428" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="153" value="&lt;b&gt;Guardians&lt;/b&gt;&lt;br&gt;マイクロサービス（内製）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="566" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="154" value="&lt;b&gt;SAGAS&lt;/b&gt;&lt;br&gt;クラウド基盤（内製）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="704" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="155" value="&lt;b&gt;ディスカバリー&lt;/b&gt;&lt;br&gt;PoCチーム（内製）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="842" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="156" value="&lt;b&gt;コンテンツ&lt;/b&gt;&lt;br&gt;mTGコンテンツ（外注）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="980" y="345" width="130" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="160" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="151" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="161" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="152" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="162" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="153" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="163" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="154" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="164" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="155" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="165" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.2;dashed=1;endArrow=open;endFill=0;" edge="1" source="103" target="156" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="170" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF0F0;strokeColor=#DC2626;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="208" y="475" width="985" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="171" value="パートナー" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontStyle=1;fontColor=#DC2626;" vertex="1" parent="1">
+          <mxGeometry x="218" y="480" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="172" value="&lt;b&gt;iネット&lt;/b&gt;&lt;br&gt;mTGバックエンド&lt;br&gt;Kraken連携BE" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="218" y="510" width="185" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="173" value="&lt;b&gt;Odd-e&lt;/b&gt;&lt;br&gt;SM外部支援" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="413" y="510" width="185" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="174" value="&lt;b&gt;KBC&lt;/b&gt;&lt;br&gt;EA支援 PMO" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="608" y="510" width="185" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="175" value="&lt;b&gt;KT社&lt;/b&gt;&lt;br&gt;Kraken側開発" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="803" y="510" width="185" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="176" value="&lt;b&gt;Crage社&lt;/b&gt;&lt;br&gt;GP獲得・PoC支援" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="998" y="510" width="185" height="70" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

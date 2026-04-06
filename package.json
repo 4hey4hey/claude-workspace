@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
+    "@notionhq/client": "5.15.0",
+    "dotenv": "17.3.1",
+    "js-yaml": "^4.1.0",
+    "notion-to-md": "3.1.9",
+    "pptxgenjs": "4.0.1"
+  },
+  "scripts": {
+    "notion:publish": "node scripts/notion-publish.js",
+    "notion:sync": "node scripts/notion-sync.js",
+    "ntn": "node scripts/notion-cli.js"
+  },
+  "devDependencies": {
+    "ntn": "0.5.5"
+  },
+  "overrides": {
+    "node-fetch": "2.7.0",
+    "jszip": "3.10.1",
+    "https": "1.0.0"
+  }
+}

@@ -1,0 +1,53 @@
+<mxfile>
+  <diagram name="KR Cycle" id="kr-cycle">
+    <mxGraphModel dx="1000" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <!-- KR1: 入口品質 (top-left) -->
+        <mxCell id="kr1" value="&lt;b style=&quot;font-size:14px;color:#2563EB&quot;&gt;KR1 入口品質&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;仕様起因の手戻りをなくす&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#2563EB;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <!-- KR2: フロー効率 (top-right) -->
+        <mxCell id="kr2" value="&lt;b style=&quot;font-size:14px;color:#7C3AED&quot;&gt;KR2 フロー効率&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;リードタイムを短縮する&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#7C3AED;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="660" y="40" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <!-- KR3: 学習ループ (bottom-center) -->
+        <mxCell id="kr3" value="&lt;b style=&quot;font-size:14px;color:#059669&quot;&gt;KR3 学習ループ&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;font-size:11px&quot;&gt;届けた結果から学び、次に活かす&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#059669;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="390" y="230" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <!-- Arrow: KR1 → KR2 -->
+        <mxCell id="a1" value="&lt;span style=&quot;font-size:10px;color:#444466&quot;&gt;手戻り減 → フロー加速&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2563EB;strokeWidth=2;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="kr1" target="kr2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Arrow: KR2 → KR3 -->
+        <mxCell id="a2" value="&lt;span style=&quot;font-size:10px;color:#444466&quot;&gt;速く届く → 検証頻度UP&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#7C3AED;strokeWidth=2;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="kr2" target="kr3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Arrow: KR3 → KR1 -->
+        <mxCell id="a3" value="&lt;span style=&quot;font-size:10px;color:#444466&quot;&gt;学び → 仮説精度UP&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#059669;strokeWidth=2;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;curved=1;" edge="1" parent="1" source="kr3" target="kr1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Foundation bar -->
+        <mxCell id="base-bg" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;strokeWidth=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="380" width="600" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="base-label" value="&lt;b style=&quot;color:#004098&quot;&gt;基盤KR&lt;/b&gt;　　チーム健全性（通年維持）　｜　次世代リーダー育成（2026年度末）" style="text;whiteSpace=wrap;html=1;fontSize=12;fontColor=#444466;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="210" y="385" width="580" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Foundation arrows up -->
+        <mxCell id="fa1" style="strokeColor=#CADCFC;strokeWidth=1.5;dashed=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="base-bg" target="kr1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="fa2" style="strokeColor=#CADCFC;strokeWidth=1.5;dashed=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="base-bg" target="kr3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="fa3" style="strokeColor=#CADCFC;strokeWidth=1.5;dashed=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="base-bg" target="kr2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

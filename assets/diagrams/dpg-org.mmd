@@ -1,0 +1,23 @@
+flowchart TD
+    Dept["リビング戦略部\n部長：大橋太郎"]
+    GM["デジタルプラットフォームＧ\nGM：及川敬仁"]
+    BIZ["ビジネス推進T\nTL：柏木隆矢"]
+    PDM["プロダクトマネジメントT\nTL：髙松直也"]
+    DM["デリバリーマネジメントT\nTL：杉﨑洋平"]
+    CX["CXデジタルPFT\nTL：吉田英司"]
+    SD["サービスデザインT\nTL：片山心平"]
+    UI["UIUXデザインT\nTL：檜垣佳太"]
+    SWE["SWEチーム\nTL：中島潤耶"]
+
+    Dept --> GM
+    GM --> BIZ & PDM & DM & CX & SD & UI & SWE
+
+    classDef dept fill:#004098,stroke:#004098,color:#ffffff
+    classDef gm fill:#EEF3FA,stroke:#004098,color:#1A1A2E
+    classDef team fill:#f8f8f8,stroke:#CADCFC,color:#444466
+    classDef me fill:#DC2626,stroke:#DC2626,color:#ffffff
+
+    class Dept dept
+    class GM gm
+    class BIZ,PDM,CX,SD,UI,SWE team
+    class DM me

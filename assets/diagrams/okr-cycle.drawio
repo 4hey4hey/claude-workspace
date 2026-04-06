@@ -1,0 +1,74 @@
+<mxfile host="65bd71144e">
+    <diagram name="KR Cycle" id="kr-cycle">
+        <mxGraphModel dx="669" dy="1052" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="460" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="kr1" value="&lt;b&gt;挑戦KR1&lt;/b&gt;&lt;br&gt;&lt;br&gt;入口品質を確立する&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;仕様起因手戻り→ゼロへ&lt;br&gt;Ready比率 80%以上&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#264AF4;fontColor=#ffffff;strokeColor=#264AF4;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="80" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="kr2" value="&lt;b&gt;挑戦KR2&lt;/b&gt;&lt;br&gt;&lt;br&gt;フロー効率を最大化する&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;サイクルタイム 50%短縮&lt;br&gt;ゴール達成率 80%以上&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#6F23D0;fontColor=#ffffff;strokeColor=#6F23D0;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="80" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="kr3" value="&lt;b&gt;挑戦KR3&lt;/b&gt;&lt;br&gt;&lt;br&gt;学習サイクルを定着させる&lt;br&gt;&lt;font style=&quot;font-size:10px&quot;&gt;価値検証→PdMフィードバック&lt;br&gt;→次の投資判断精度↑&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#1D8B56;fontColor=#ffffff;strokeColor=#1D8B56;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="80" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="a1" value="&lt;font style=&quot;font-size:10px&quot;&gt;手戻り↓→フロー改善&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#264AF4;strokeWidth=2.5;fontSize=10;fontColor=#444466;html=1;" parent="1" source="kr1" target="kr2" edge="1">
+                    <mxGeometry x="0.0101" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a2" value="&lt;font style=&quot;font-size:10px&quot;&gt;速く届く→検証頻度↑&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#6F23D0;strokeWidth=2.5;fontSize=10;fontColor=#444466;html=1;" parent="1" source="kr2" target="kr3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="a3" value="&lt;font style=&quot;font-size:10px&quot;&gt;学びが入口品質をさらに改善する&lt;/font&gt;" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#1D8B56;strokeWidth=2.5;fontSize=10;fontColor=#444466;curved=1;html=1;" parent="1" source="kr3" target="kr1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="850" y="280"/>
+                            <mxPoint x="150" y="280"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="base" value="&lt;b&gt;基盤KR1&lt;/b&gt; チーム健全性維持　　　｜　　　&lt;b&gt;基盤KR2&lt;/b&gt; 次期リーダー育成　　　＝　全KRの前提条件" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="130" y="340" width="740" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="a4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#CCCCCC;strokeWidth=1.5;dashed=1;" parent="1" source="base" target="kr1" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="150" y="320"/>
+                            <mxPoint x="150" y="210"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#CCCCCC;strokeWidth=1.5;dashed=1;" parent="1" source="base" target="kr2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="500" y="320"/>
+                            <mxPoint x="500" y="210"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="a6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#CCCCCC;strokeWidth=1.5;dashed=1;" parent="1" source="base" target="kr3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="850" y="320"/>
+                            <mxPoint x="850" y="210"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="lbl_top" value="開発バリューチェーンの全区間をカバーする循環構造" style="text;html=1;fontSize=12;fontColor=#1A1A1A;fontStyle=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="250" y="20" width="500" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="lbl_in" value="入口" style="text;html=1;fontSize=10;fontColor=#264AF4;fontStyle=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="55" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="lbl_flow" value="フロー" style="text;html=1;fontSize=10;fontColor=#6F23D0;fontStyle=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="460" y="55" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="lbl_out" value="出口・学習" style="text;html=1;fontSize=10;fontColor=#1D8B56;fontStyle=1;align=center;" parent="1" vertex="1">
+                    <mxGeometry x="795" y="55" width="90" height="20" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

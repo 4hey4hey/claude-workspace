@@ -1,0 +1,47 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash:*",
+      "WebFetch(domain:note.com)",
+      "Bash(file /Users/sugisaki/Documents/Claude/outputs/pptx/*.pptx)",
+      "WebFetch(domain:www.intelligentcio.com)",
+      "Bash(echo \"---EXIT:$?---\")",
+      "Bash(/Applications/draw.io.app/Contents/MacOS/draw.io -x -f png -e -b 10 -o /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-mission-tree.drawio.png /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-mission-tree.drawio)",
+      "Bash(/Applications/draw.io.app/Contents/MacOS/draw.io -x -f png -e -b 10 -o /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-kr-cycle.drawio.png /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-kr-cycle.drawio)",
+      "Bash(/Applications/draw.io.app/Contents/MacOS/draw.io -x -f png -e -b 10 -o /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-logic-tree.drawio.png /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-logic-tree.drawio)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-mission-tree.drawio.png /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-kr-cycle.drawio.png /Users/sugisaki/Documents/Claude/assets/diagrams/dm-okr-logic-tree.drawio.png)",
+      "Read(//Users/sugisaki/.claude/plans/**)",
+      "Read(//Users/sugisaki/Documents/Claude/**)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/sugisaki/Documents/Claude/.claude/hooks/block-destructive-cmd.sh",
+            "statusMessage": "破壊的コマンド検査中..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/sugisaki/Documents/Claude/.claude/hooks/warn-pkg-install.sh",
+            "statusMessage": "パッケージインストール検査中..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/sugisaki/Documents/Claude/.claude/hooks/validate-output-path.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

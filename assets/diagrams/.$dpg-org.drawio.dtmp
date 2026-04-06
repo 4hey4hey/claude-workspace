@@ -1,0 +1,61 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.6 Chrome/144.0.7559.236 Electron/40.8.4 Safari/537.36" version="29.6.6">
+  <diagram name="DPG体制図" id="0">
+    <mxGraphModel dx="941" dy="800" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1000" pageHeight="440" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dept" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=13;arcSize=8;" value="&lt;b&gt;リビング戦略部&lt;/b&gt;&lt;br&gt;部長：大橋太郎" vertex="1">
+          <mxGeometry height="55" width="220" x="390" y="15" as="geometry" />
+        </mxCell>
+        <mxCell id="gm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF3FA;fontColor=#1A1A2E;strokeColor=#004098;strokeWidth=2;fontSize=13;arcSize=8;" value="&lt;b&gt;デジタルプラットフォームＧ&lt;/b&gt;&lt;br&gt;GM：及川敬仁" vertex="1">
+          <mxGeometry height="60" width="290" x="355" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="e0" edge="1" parent="1" source="dept" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#004098;strokeWidth=2;" target="gm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="biz" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;ビジネス推進T&lt;/b&gt;&lt;br&gt;TL：柏木隆矢" vertex="1">
+          <mxGeometry height="65" width="210" x="55" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="pdm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;プロダクト&lt;br&gt;マネジメントT&lt;/b&gt;&lt;br&gt;TL：髙松直也" vertex="1">
+          <mxGeometry height="65" width="210" x="280" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="dm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DC2626;fontColor=#ffffff;strokeColor=#DC2626;fontSize=12;arcSize=8;" value="&lt;b&gt;デリバリー&lt;br&gt;マネジメントT&lt;/b&gt;&lt;br&gt;TL：杉﨑洋平" vertex="1">
+          <mxGeometry height="65" width="210" x="505" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="cx" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;CXデジタル&lt;br&gt;プラットフォームT&lt;/b&gt;&lt;br&gt;TL：吉田英司" vertex="1">
+          <mxGeometry height="65" width="210" x="730" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="sd" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;サービス&lt;br&gt;デザインT&lt;/b&gt;&lt;br&gt;TL：片山心平" vertex="1">
+          <mxGeometry height="65" width="210" x="170" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="ui" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;UIUXデザインT&lt;/b&gt;&lt;br&gt;TL：檜垣佳太" vertex="1">
+          <mxGeometry height="65" width="210" x="395" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="swe" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CADCFC;fontSize=12;arcSize=8;" value="&lt;b&gt;SWEチーム&lt;/b&gt;&lt;br&gt;（企画部兼務）&lt;br&gt;TL：中島潤耶" vertex="1">
+          <mxGeometry height="65" width="210" x="659" y="358" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" target="biz">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" target="pdm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#DC2626;strokeWidth=2;" target="dm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" target="cx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;exitX=0.25;exitY=1;exitDx=0;exitDy=0;" target="sd">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="gm" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" target="swe">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

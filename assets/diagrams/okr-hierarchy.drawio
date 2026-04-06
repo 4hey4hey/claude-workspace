@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile>
+  <diagram name="OKR Hierarchy" id="okr-h">
+    <mxGraphModel dx="1200" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="500" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- リビング戦略部 -->
+        <mxCell id="top" value="&lt;b&gt;リビング戦略部&lt;/b&gt;&lt;br&gt;FY28利益目標達成（ROIC改善）" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="370" y="10" width="360" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- DPG Objective -->
+        <mxCell id="dpg" value="&lt;b&gt;DPG Objective&lt;/b&gt;&lt;br&gt;SoE領域のEAを整備し、mTGを中核に日本一のデジタルPFを実現する" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#004098;fontColor=#ffffff;strokeColor=#004098;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="580" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow top → dpg -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="top" target="dpg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- KR① 熱狂顧客 -->
+        <mxCell id="kr1" value="&lt;b&gt;挑戦KR①&lt;/b&gt;&lt;br&gt;熱狂顧客の獲得" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="10" y="155" width="170" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- KR② 高速PD（ハイライト） -->
+        <mxCell id="kr2" value="&lt;b&gt;★ 挑戦KR② 高速プロダクト開発の型&lt;/b&gt;&lt;br&gt;1週間以内リリース ＋ 検証結果が次に反映" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#264AF4;fontColor=#ffffff;strokeColor=#264AF4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="200" y="150" width="350" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- 基盤KR③〜⑦（まとめ） -->
+        <mxCell id="kr37" value="&lt;b&gt;基盤KR③〜⑦&lt;/b&gt;&lt;br&gt;EA進捗 / 会員数 / 送客 / コスト / Biz評価" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="570" y="150" width="280" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows dpg → KRs -->
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="dpg" target="kr1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#264AF4;strokeWidth=2.5;" edge="1" source="dpg" target="kr2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="dpg" target="kr37" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- デリバリーチーム Objective -->
+        <mxCell id="dobj" value="&lt;b&gt;デリバリーチーム Objective&lt;/b&gt;&lt;br&gt;投資が最短・最確実に顧客価値へ変換されるデリバリーラインを確立する" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#00118F;fontColor=#ffffff;strokeColor=#00118F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="170" y="230" width="420" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow kr2 → dobj -->
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#264AF4;strokeWidth=2.5;" edge="1" source="kr2" target="dobj" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 挑戦KR1 入口品質 -->
+        <mxCell id="dkr1" value="&lt;b&gt;挑戦KR1&lt;/b&gt;&lt;br&gt;入口品質&lt;br&gt;手戻り→ゼロへ" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#00118F;strokeColor=#264AF4;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="50" y="315" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- 挑戦KR2 フロー効率 -->
+        <mxCell id="dkr2" value="&lt;b&gt;挑戦KR2&lt;/b&gt;&lt;br&gt;フロー効率&lt;br&gt;CT 50%短縮" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#00118F;strokeColor=#6F23D0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="220" y="315" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- 挑戦KR3 学習ループ -->
+        <mxCell id="dkr3" value="&lt;b&gt;挑戦KR3&lt;/b&gt;&lt;br&gt;学習ループ&lt;br&gt;検証→次の投資判断" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EEF3FA;fontColor=#00118F;strokeColor=#1D8B56;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="315" width="165" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- 基盤KR1 健全性 -->
+        <mxCell id="dkr4" value="&lt;b&gt;基盤KR1&lt;/b&gt;&lt;br&gt;チーム健全性維持" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="580" y="315" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- 基盤KR2 育成 -->
+        <mxCell id="dkr5" value="&lt;b&gt;基盤KR2&lt;/b&gt;&lt;br&gt;次期リーダー育成" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f5f5f5;fontColor=#444466;strokeColor=#CCCCCC;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="750" y="315" width="150" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows dobj → delivery KRs -->
+        <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#264AF4;strokeWidth=1.5;" edge="1" source="dobj" target="dkr1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#6F23D0;strokeWidth=1.5;" edge="1" source="dobj" target="dkr2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#1D8B56;strokeWidth=1.5;" edge="1" source="dobj" target="dkr3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="dobj" target="dkr4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1.5;" edge="1" source="dobj" target="dkr5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 担い手ラベル -->
+        <mxCell id="lbl1" value="PdMチーム主管" style="text;html=1;fontSize=9;fontColor=#666666;align=center;" vertex="1" parent="1">
+          <mxGeometry x="30" y="198" width="130" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="lbl2" value="デリバリーチームが直接担う" style="text;html=1;fontSize=9;fontColor=#264AF4;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="255" y="205" width="240" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="lbl3" value="各PJチーム / 事業 / PdM" style="text;html=1;fontSize=9;fontColor=#666666;align=center;" vertex="1" parent="1">
+          <mxGeometry x="600" y="205" width="220" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- 間接貢献の点線 -->
+        <mxCell id="e11" value="間接貢献" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#94A3B8;strokeWidth=1;dashed=1;fontSize=9;fontColor=#666666;" edge="1" source="dobj" target="kr37" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="650" y="260"/>
+              <mxPoint x="850" y="260"/>
+              <mxPoint x="850" y="175"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

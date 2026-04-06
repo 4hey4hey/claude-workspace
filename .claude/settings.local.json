@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(pip:*)",
+      "Bash(pip3:*)",
+      "Bash(python3:*)",
+      "Bash(source:*)",
+      "Bash(pdftoppm:*)",
+      "Bash(qlmanage:*)",
+      "Bash(which:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Read(//tmp/**)",
+      "Read(//usr/**)",
+      "Read(//opt/homebrew/lib/**)",
+      "Read(//Users/sugisaki/.npm/**)",
+      "Read(//Users/sugisaki/Downloads/**)",
+      "WebSearch",
+      "WebFetch(domain:support.claude.com)",
+      "WebFetch(domain:claude.com)",
+      "WebFetch(domain:fortelabs.com)",
+      "WebFetch(domain:gemini.google)",
+      "WebFetch(domain:www.notion.com)"
+    ],
+    "additionalDirectories": [
+      "/Users/sugisaki/Downloads"
+    ]
+  }
+}
