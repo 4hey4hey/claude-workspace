@@ -1,3 +1,4 @@
+<!-- COPILOT-NATIVE SKILL — Copilot専用のNotion同期スキル -->
 ---
 name: notion-sync
 description: "Notionページをローカル（notion/）に同期する。既存の同期済みファイルの再同期、または新しいページの初回同期に使う。"

@@ -52,9 +52,11 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 
 ## スキル一覧
 
+> **Copilot連携**: `.github/skills/` にはCopilot専用Notionスキル（notion-cli, notion-create, notion-sync, notion-update）と共有スキルのプロキシが配置されている。スキルの正本は常に `skills/` にある。詳細は `.github/copilot-instructions.md` を参照。
+
 | スキル                   | パス                                   | 用途                                                       | 備考                                   |
 | ------------------------ | -------------------------------------- | ---------------------------------------------------------- | -------------------------------------- |
-| **ai-cos**               | `skills/ai-cos/SKILL.md`               | 課題構造化・壁打ち・GM向け報告・意思決定支援               | **最優先で使う**                       |
+| **ai-cos**               | `skills/ai-cos/SKILL.md`               | 課題構造化・壁打ち・GM向け報告・意思決定支援・仕上げ（レッドチーム） | **最優先で使う**                       |
 | **era**                  | `skills/era/SKILL.md`                  | 施策のAIエージェント時代耐性レビュー                       |                                        |
 | **issue**                | `skills/issue/SKILL.md`                | 多視点構造化 / ドキュメントレビュー                        |                                        |
 | **review**               | `skills/review/SKILL.md`               | ドキュメントレビュー（issueのショートカット）              |                                        |
@@ -67,6 +69,7 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 | **pptx-reader**          | `skills/pptx-reader/SKILL.md`          | PPTX読み取り                                               |                                        |
 | **pptx-diagram**         | `skills/pptx-diagram/SKILL.md`         | draw.io XML→VSCodeプレビュー→PNG→PPTXスライド埋め込み       | pptx-creatorと組み合わせて使う         |
 | **schedule-finder**      | `skills/schedule-finder/SKILL.md`      | OWAカレンダーをComputer Useで操作し複数名の空き時間を探す   | Chrome画面操作が必要                    |
+| **hiring-agent**         | `skills/hiring-agent/SKILL.md`         | 採用パイプライン支援（書類選考・面接設計・評価）           | DM採用専用                             |
 
 ### スキル選択ルール
 
@@ -83,6 +86,8 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 - 設計テンプレ持参で生成だけしたい → **pptx-creator**
 - 体制図・フロー図・ポンチ絵をスライドに入れたい → **pptx-diagram**
 - 「棚卸し」「ファイル整理」「重複まとめたい」「outputs整理」 → **ai-cos**（棚卸しモード）
+- 「仕上げて」「ツッコミ入れて」「通るか見て」「想定質問」「レッドチーム」「GMに見せる前に」 → **ai-cos**（仕上げモード）
+- 「書類選考」「レジュメ見て」「経歴書」「面接準備」「面接評価」「候補者比較」 → **hiring-agent**
 - 「空き時間を探して」「みんなが空いている日を見つけて」「スケジュール確認して」 → **schedule-finder**
 
 ---
@@ -185,3 +190,4 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 
 - ディレクトリ構造・ファイル配置ルール: @.claude/refs/directory-structure.md
 - PPT生成ルール: @.claude/refs/ppt-rules.md
+- デザインシステム（AI エージェント向け）: @.claude/refs/design.md

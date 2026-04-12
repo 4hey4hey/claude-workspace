@@ -1,3 +1,4 @@
+<!-- COPILOT-NATIVE SKILL — Copilot専用のNotionページ更新スキル -->
 ---
 name: notion-update
 description: "NotionページのURLを指定して内容を更新する。全置換、部分更新（search-and-replace）、追記に対応。"

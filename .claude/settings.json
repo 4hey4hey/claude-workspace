@@ -15,7 +15,9 @@
       "Bash(wc -l /Users/sugisaki/Documents/Claude/.claude/hooks/*.sh)",
       "Bash(grep -l \"ai-cos\\\\|issue-to-stakeholder\\\\|team-pulse\\\\|pptx\\\\|notion\" /Users/sugisaki/Documents/Claude/skills/*/SKILL.md)",
       "Bash(wc -c /Users/sugisaki/Documents/Claude/skills/*/SKILL.md)",
-      "Read(//Users/sugisaki/**)"
+      "Read(//Users/sugisaki/**)",
+      "WebFetch(domain:www.ryuzee.com)",
+      "WebFetch(domain:slide.meguro.ryuzee.com)"
     ]
   },
   "hooks": {

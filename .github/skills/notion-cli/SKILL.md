@@ -1,3 +1,4 @@
+<!-- COPILOT-NATIVE SKILL — Copilot専用のNotion CLI操作スキル -->
 ---
 name: notion-cli
 description: "Use the Notion CLI with GitHub Copilot in this workspace. Use when the user asks to call the Notion API, query a database, create or update a page, upload a file to Notion, inspect endpoint docs, or run the ntn command."

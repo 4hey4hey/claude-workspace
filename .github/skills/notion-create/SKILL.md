@@ -1,3 +1,4 @@
+<!-- COPILOT-NATIVE SKILL — Copilot専用のNotionページ作成スキル -->
 ---
 name: notion-create
 description: "Notionに新しいページを作成し、Markdown内容を書き込む。親ページIDまたはデータベースIDを指定して新規ページを追加する。"

@@ -99,8 +99,8 @@
 
 | ファイル | 用途 |
 |---|---|
-| [dm-annual-plan-fy26.md](../outputs/docs/stakeholder/2026-04-04_dm-annual-plan-fy26.md) | 年度計画（たたき。Phase 2で更新） |
-| [dm-okr-for-team.md](../outputs/docs/stakeholder/2026-04-04_dm-okr-for-team.md) | チーム向けOKR説明 |
-| [_index.md](assets/context/projects/delivery-mgmt/_index.md) | Mission定義（_index.md 内 §Mission セクション） |
+| [dm-annual-plan-fy26.md](dm-annual-plan-fy26.md) | 年度計画（たたき。Phase 2で更新） |
+| [dm-okr-for-team.md](dm-okr-for-team.md) | チーム向けOKR説明 |
+| [_index.md](_index.md) | Mission定義（_index.md 内 §Mission セクション） |
 | [dpg-okr-fy26.md](../notion/shared/dpg-okr-fy26.md) | DPG FY26 OKR |
 | [stakeholder-map.md](../assets/context/stakeholder-map.md) | 及川GMの思考回路・報告ルール |

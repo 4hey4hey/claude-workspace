@@ -16,15 +16,28 @@
 │       └── validate-output-path.sh  #   出力パス検証（生成物→正しいディレクトリ）
 │
 ├── .github/                         # GitHub Copilot設定
-│   ├── copilot-instructions.md      # Copilotメイン指示
+│   ├── copilot-instructions.md      # Copilotメイン指示（スキルルーティング・禁止ルール）
 │   ├── agents/                      # Copilotエージェント定義
 │   │   └── notion-sync.md           #   Notion同期オペレーション用
-│   └── skills/                      # Copilotスキル
-│       ├── notion-cli/SKILL.md      #   Notion CLIスキル（汎用API操作）
-│       ├── notion-sync/SKILL.md     #   Notion→ローカル同期
-│       ├── notion-create/SKILL.md   #   Notionページ新規作成
-│       ├── notion-update/SKILL.md   #   Notionページ更新（URL指定）
-│       └── notion-publish/SKILL.md  #   outbox→Notion公開
+│   └── skills/                      # Copilotスキル（NATIVE + Proxy）
+│       ├── notion-cli/SKILL.md      #   [NATIVE] Notion CLIスキル（汎用API操作）
+│       ├── notion-sync/SKILL.md     #   [NATIVE] Notion→ローカル同期
+│       ├── notion-create/SKILL.md   #   [NATIVE] Notionページ新規作成
+│       ├── notion-update/SKILL.md   #   [NATIVE] Notionページ更新（URL指定）
+│       ├── ai-cos/SKILL.md          #   [Proxy] → skills/ai-cos/SKILL.md
+│       ├── era/SKILL.md             #   [Proxy] → skills/era/SKILL.md
+│       ├── issue/SKILL.md           #   [Proxy] → skills/issue/SKILL.md
+│       ├── review/SKILL.md          #   [Proxy] → skills/review/SKILL.md
+│       ├── team-pulse/SKILL.md      #   [Proxy] → skills/team-pulse/SKILL.md
+│       ├── hiring-agent/SKILL.md    #   [Proxy] → skills/hiring-agent/SKILL.md
+│       ├── notion-export/SKILL.md   #   [Proxy] → skills/notion-export/SKILL.md
+│       ├── notion-publish/SKILL.md  #   [Proxy] → skills/notion-publish/SKILL.md
+│       ├── ppt/SKILL.md             #   [Proxy] → skills/ppt/SKILL.md
+│       ├── pptx-planner/SKILL.md    #   [Proxy] → skills/pptx-planner/SKILL.md
+│       ├── pptx-creator/SKILL.md    #   [Proxy] → skills/pptx-creator/SKILL.md
+│       ├── pptx-reader/SKILL.md     #   [Proxy] → skills/pptx-reader/SKILL.md
+│       ├── pptx-diagram/SKILL.md    #   [Proxy] → skills/pptx-diagram/SKILL.md
+│       └── schedule-finder/SKILL.md #   [Proxy] → skills/schedule-finder/SKILL.md
 │
 ├── skills/                          # Claude Codeスキル定義（SKILL.md）
 │   ├── ai-cos/                      # AI参謀（構造化・翻訳・壁打ち・棚卸し）
@@ -57,6 +70,7 @@
 │       │   └── process/             # 開発プロセス・スクラム運営
 │       ├── stakeholder/             # ステークホルダー向け文書
 │       ├── team-pulse/              # team-pulse出力（1on1準備シート等）
+│       ├── hiring/                  # 採用パイプライン出力（書類選考・面接ガイド・評価）
 │       └── reviews/                 # レビュー出力
 │           └── agent-era/           # AIエージェント時代レビュー
 │
@@ -75,6 +89,11 @@
 │   │   │   ├── _tasks/              # アクティブタスク一覧
 │   │   │   │   └── active-tasks.md
 │   │   │   └── _logs/               # 週次スナップショット
+│   │   ├── hiring/                  # 採用マスターデータ（JD・面接テンプレ・評価基準）
+│   │   │   ├── jd.md               # JD + Must/Want + スコアリングルブリック
+│   │   │   ├── casual-interview.md  # カジュアル面談テンプレ
+│   │   │   ├── technical-interview.md # 技術面接STARテンプレ
+│   │   │   └── evaluation-criteria.md # 6軸評価基準
 │   │   └── projects/                # プロジェクト別の深掘り情報（手動）
 │   │       ├── kraken/_index.md     # Kraken連携/基幹刷新
 │   │       ├── auth-platform/_index.md  # 認証基盤刷新（EA/CIAM/SSO）
@@ -127,11 +146,12 @@
 
 ### ツール設定系
 
-- **Claude Codeスキル** → `skills/{name}/SKILL.md`
+- **スキル正本** → `skills/{name}/SKILL.md`（Claude Code / Copilot 共用。全スキルの正本はここ）
 - **Claude Codeサブエージェント** → `.claude/agents/{name}.md`
-- **Copilotスキル** → `.github/skills/{name}/SKILL.md`
+- **Copilot専用スキル** → `.github/skills/{name}/SKILL.md`（notion-cli, notion-create, notion-sync, notion-update の4つのみ）
+- **Copilotプロキシスキル** → `.github/skills/{name}/SKILL.md`（`<!-- PROXY SKILL -->` マーカー付き。正本へのリダイレクトのみ。ロジックを書かない）
 - **Copilotエージェント** → `.github/agents/{name}.md`
-- **Copilot指示** → `.github/copilot-instructions.md`
+- **Copilot指示** → `.github/copilot-instructions.md`（スキルルーティング・分散防止ルール）
 
 ### その他
 
