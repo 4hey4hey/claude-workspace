@@ -10,7 +10,10 @@
 ├── .claude/                         # Claude Code設定（ルート固定）
 │   ├── refs/                        # CLAUDE.md から @import される参照ドキュメント
 │   ├── agents/                      # カスタムサブエージェント定義
-│   └── hooks/                       # フックスクリプト
+│   └── hooks/                       # フックスクリプト（安全ガードレール）
+│       ├── block-destructive-cmd.sh #   破壊的コマンドブロック（rm -r, force push等）
+│       ├── warn-pkg-install.sh      #   パッケージインストール警告（サプライチェーンリスク）
+│       └── validate-output-path.sh  #   出力パス検証（生成物→正しいディレクトリ）
 │
 ├── .github/                         # GitHub Copilot設定
 │   ├── copilot-instructions.md      # Copilotメイン指示
@@ -28,7 +31,6 @@
 │   ├── era/                         # AIエージェント時代の施策レビュー
 │   ├── issue/                       # 壁打ち・多視点構造化
 │   ├── review/                      # ドキュメントレビュー（issueショートカット）
-│   ├── issue-to-stakeholder/        # 【非推奨: ai-cos を優先】
 │   ├── team-pulse/                  # チームタスク配分・負荷管理・アサイン検討
 │   ├── notion-export/               # 壁打ち結果→Notion outbox出力
 │   ├── ppt/                         # PPT統合フロー（設計→生成）
@@ -102,7 +104,7 @@
 - **PPTX生成物** → `outputs/pptx/YYYY-MM-DD_topic-name.pptx`（日付プレフィックス + kebab-case）
 - **課題分析**（/issue スキルの出力）→ `outputs/docs/issues/{カテゴリ}/YYYY-MM-DD_トピック.md`
   - カテゴリ: `organization`（体制・役割）/ `product`（プロダクト戦略）/ `platform`（技術基盤）/ `governance`（意思決定・権限）/ `process`（開発プロセス）
-- **ステークホルダー向け文書**（/issue-to-stakeholder の出力）→ `outputs/docs/stakeholder/YYYY-MM-DD_トピック.md`
+- **ステークホルダー向け文書**（ai-cos 翻訳モードの出力）→ `outputs/docs/stakeholder/YYYY-MM-DD_トピック.md`
 - **レビュー出力** → `outputs/docs/reviews/YYYY-MM-DD_トピック.md`
 - **AIエージェント時代レビュー** → `outputs/docs/reviews/agent-era/YYYY-MM-DD_施策名.md`
 - **team-pulse出力**（1on1準備シート等）→ `outputs/docs/team-pulse/YYYY-MM-DD_{名前 or トピック}.md`

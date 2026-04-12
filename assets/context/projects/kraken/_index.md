@@ -1,5 +1,8 @@
 # Kraken Migration PJ（基幹刷新）
 
+> **最終更新:** 2026-04-06
+> **鮮度注意:** 3ヶ月以上経過した場合、再検証を推奨
+
 > **スコープ：** 電力CIS / CIRIUS 等のレガシー基幹システムから Kraken への移行PJ本体。
 > mTG ↔ Kraken 直連携は mTG 側のPJ課題であり、`projects/mtg/` を参照。
 

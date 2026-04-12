@@ -109,3 +109,28 @@
 - team-pulse に「判断ガイド」セクションを追加（ai-cos の「次の一手」を「判断非代替」原則に合わせた翻訳形式）
 - team-pulse eval.md に軸4（行動導線性）を追加
 
+## [2026-04-06] Claude セッション起動時に CronCreate 登録する仕組みが必要
+
+**何が起きたか**: GitHub への定期 auto-commit を CronCreate で設定したが、毎回セッション起動時に **手動で登録コマンドを実行する必要がある**（セッション横断で継続しない）。
+
+**なぜ問題か**: セッション起動のたびに 1 ステップ増える。手順書に頼ると、開発者が忘れる可能性が高い。
+
+**対策（実施済み）**:
+1. `.claude/commands/periodic-commit.md` ファイルを作成（開始手順を文書化）
+2. memory に本レッスンを追記（セッション横断での思い出し）
+3. 今後の改善案を検討予定
+
+**改善検討中**:
+- Option A: `.claude/hooks/` に `OnSessionStart` フック追加（自動実行）
+- Option B: `CLAUDE.md` の「セッション開始チェックリスト」に記載
+- Option C: Copilot の方で `notion-sync` 定期実行フック化（24時間×365日必須な場合）
+
+**ルール（暫定）**:
+- セッション開始時に `.claude/commands/periodic-commit.md` を開き、「CronCreate コマンド」セクションを実行する
+- 毎日 19:00 に自動 commit/push が稼働していることを GitHub Web UI で週 1 回確認
+- GitHub PAT トークンの有効期限（90日）を 1 ヶ月単位でチェック
+  - トークン更新時は `.claude/settings.json` の `git config` も更新（手動）
+
+**横展開**:
+- 定期自動スクリプトが複数出てきたら（Notion Sync、スキル改善监査等）、共通の「セッション起動スクリプト」セクションを `.claude/refs/` に切り出す検討
+

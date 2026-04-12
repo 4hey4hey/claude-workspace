@@ -58,7 +58,6 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 | **era**                  | `skills/era/SKILL.md`                  | 施策のAIエージェント時代耐性レビュー                       |                                        |
 | **issue**                | `skills/issue/SKILL.md`                | 多視点構造化 / ドキュメントレビュー                        |                                        |
 | **review**               | `skills/review/SKILL.md`               | ドキュメントレビュー（issueのショートカット）              |                                        |
-| **issue-to-stakeholder** | `skills/issue-to-stakeholder/SKILL.md` | ステークホルダー翻訳                                       | **非推奨: ai-cos を優先**              |
 | **team-pulse**           | `skills/team-pulse/SKILL.md`           | チームタスク配分・負荷管理・アサイン検討                   |                                        |
 | **notion-export**        | `skills/notion-export/SKILL.md`        | 壁打ち結果→Notion outbox出力                               | notion-publish で公開                  |
 | **notion-publish**       | `skills/notion-publish/SKILL.md`       | outbox未送信ファイル→Notion自動公開                        | notion-exportの後工程                  |
@@ -67,6 +66,7 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 | **pptx-creator**         | `skills/pptx-creator/SKILL.md`         | PPTX生成（設計テンプレあり/なし両対応）                    | 生成のみ                               |
 | **pptx-reader**          | `skills/pptx-reader/SKILL.md`          | PPTX読み取り                                               |                                        |
 | **pptx-diagram**         | `skills/pptx-diagram/SKILL.md`         | draw.io XML→VSCodeプレビュー→PNG→PPTXスライド埋め込み       | pptx-creatorと組み合わせて使う         |
+| **schedule-finder**      | `skills/schedule-finder/SKILL.md`      | OWAカレンダーをComputer Useで操作し複数名の空き時間を探す   | Chrome画面操作が必要                    |
 
 ### スキル選択ルール
 
@@ -74,7 +74,7 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 - タスク配分・負荷確認・アサイン検討・メンバー状況・進捗確認 → **team-pulse**
 - 施策・Epicの将来性レビュー → **era**
 - 多視点分析・ドキュメントレビュー → **issue** or **/review**
-- 「伝えたい」が出たら → **ai-cos**（issue-to-stakeholderより優先）
+- 「伝えたい」が出たら → **ai-cos**
 - チーム状況 → ai-cosに報告する場合: team-pulse（ファクト整理）→ ai-cos（翻訳）
 - 「Notionに送りたい」「Notionに反映して」 → **notion-export**（outbox作成）→ **notion-publish**（Notionへ公開）
 - 「outboxを公開して」「Notionに送って」 → **notion-publish**
@@ -83,6 +83,7 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 - 設計テンプレ持参で生成だけしたい → **pptx-creator**
 - 体制図・フロー図・ポンチ絵をスライドに入れたい → **pptx-diagram**
 - 「棚卸し」「ファイル整理」「重複まとめたい」「outputs整理」 → **ai-cos**（棚卸しモード）
+- 「空き時間を探して」「みんなが空いている日を見つけて」「スケジュール確認して」 → **schedule-finder**
 
 ---
 
@@ -167,6 +168,16 @@ AIの抽象的な出力（計画、方針、構造化結果）は情報量が多
 - **シンプル第一**：すべての変更をできる限りシンプルにする。影響するコードを最小限にする。
 - **手を抜かない**：根本原因を見つける。一時的な修正は避ける。シニアエンジニアの水準を保つ。
 - **影響を最小化する**：変更は必要な箇所のみにとどめる。バグを新たに引き込まない。
+
+---
+
+## アクティブフック（.claude/hooks/）
+
+| フェーズ | 対象 | スクリプト | 動作 |
+|----------|------|-----------|------|
+| PreToolUse | Bash | block-destructive-cmd.sh | rm -r, force push, hard reset, clean -f, curl\|bash をブロック |
+| PreToolUse | Bash | warn-pkg-install.sh | npm/pip/brew install 前にサプライチェーンリスク警告 |
+| PostToolUse | Write\|Edit | validate-output-path.sh | 生成物が正しいディレクトリに出力されているか検証 |
 
 ---
 
