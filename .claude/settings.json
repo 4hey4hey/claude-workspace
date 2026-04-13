@@ -17,7 +17,10 @@
       "Bash(wc -c /Users/sugisaki/Documents/Claude/skills/*/SKILL.md)",
       "Read(//Users/sugisaki/**)",
       "WebFetch(domain:www.ryuzee.com)",
-      "WebFetch(domain:slide.meguro.ryuzee.com)"
+      "WebFetch(domain:slide.meguro.ryuzee.com)",
+      "WebFetch(domain:www.odd-e.jp)",
+      "WebFetch(domain:www.servantworks.co.jp)",
+      "WebFetch(domain:www.scrum.org)"
     ]
   },
   "hooks": {
