@@ -5,8 +5,8 @@
       "cron": "0 19 * * *",
       "prompt": "Claude フォルダを自動 commit/push してください。以下のコマンドを実行してください:\n\ncd \"${CLAUDE_DIR:-$HOME/Documents/Claude}\" && git add . && git commit -m \"chore: daily auto-commit [$(date '+%Y-%m-%d %H:%M')]\" && git push origin main\n\nコミット メッセージに日付が含まれます。",
       "createdAt": 1775996502038,
-      "recurring": true,
-      "lastFiredAt": 1776076200784
+      "lastFiredAt": 1776162600686,
+      "recurring": true
     }
   ]
 }

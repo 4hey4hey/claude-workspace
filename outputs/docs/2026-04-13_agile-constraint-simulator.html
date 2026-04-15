@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アジャイル制約シミュレーター</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    background: #FFFFFF;
+    color: #212121;
+    min-height: 100vh;
+    padding: 40px 24px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #212121;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #616161;
+  }
+
+  /* ---- Scenario Tabs ---- */
+  .scenarios {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .scenario-btn {
+    padding: 12px 28px;
+    border: 2px solid #E0E0E0;
+    background: #FFFFFF;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    color: #616161;
+    transition: all 0.25s;
+  }
+  .scenario-btn:first-child { border-radius: 4px 0 0 4px; }
+  .scenario-btn:last-child { border-radius: 0 4px 4px 0; }
+  .scenario-btn + .scenario-btn { border-left: none; }
+  .scenario-btn:hover { background: #F5F5F5; }
+  .scenario-btn.active {
+    background: #264AF4;
+    color: #FFFFFF;
+    border-color: #264AF4;
+  }
+  .scenario-btn.active + .scenario-btn { border-left-color: #264AF4; }
+
+  /* ---- Main Layout ---- */
+  .main-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ---- Visual Balance ---- */
+  .balance-section {
+    margin-bottom: 48px;
+  }
+  .balance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .balance-label {
+    font-size: 13px;
+    color: #616161;
+    font-weight: 700;
+  }
+  .balance-bar-wrap {
+    position: relative;
+    height: 56px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .balance-bar-supply {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: #264AF4;
+    border-radius: 4px 0 0 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 15px;
+    min-width: 80px;
+  }
+  .balance-bar-demand {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-left: 3px solid #D41836;
+    transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+  }
+  .balance-bar-demand::after {
+    content: attr(data-label);
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #D41836;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .balance-bar-demand-zone {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: rgba(212, 24, 54, 0.08);
+    transition: left 0.5s, width 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .balance-legend {
+    display: flex;
+    gap: 24px;
+    font-size: 12px;
+    color: #616161;
+  }
+  .balance-legend span::before {
+    content: '';
+    display: inline-block;
+    width: 12px; height: 12px;
+    border-radius: 2px;
+    margin-right: 4px;
+    vertical-align: -1px;
+  }
+  .legend-supply::before { background: #264AF4; }
+  .legend-demand::before { background: #D41836; }
+
+  /* ---- 4 Variable Cards ---- */
+  .var-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .var-card {
+    border: 2px solid #E0E0E0;
+    border-radius: 4px;
+    padding: 20px;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .var-card.is-fixed {
+    border-color: #264AF4;
+    background: #FAFCFF;
+  }
+  .var-card.is-variable {
+    border-color: #FF7800;
+    background: #FFFAF5;
+  }
+  .var-card.is-danger {
+    border-color: #D41836;
+    background: #FFF5F5;
+  }
+
+  .var-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .var-name {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .lock-toggle {
+    width: 56px;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.3s;
+    outline: none;
+  }
+  .lock-toggle.locked { background: #264AF4; }
+  .lock-toggle.unlocked { background: #FF7800; }
+  .lock-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    transition: left 0.3s;
+  }
+  .lock-toggle.locked::after { left: 29px; }
+  .lock-toggle.unlocked::after { left: 3px; }
+
+  .var-status {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .var-status.fixed { color: #264AF4; }
+  .var-status.variable { color: #FF7800; }
+  .var-status.danger { color: #D41836; }
+
+  .var-value-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .var-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #E0E0E0;
+    outline: none;
+    transition: opacity 0.3s;
+  }
+  .var-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #264AF4;
+    cursor: pointer;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .var-slider:disabled {
+    opacity: 0.35;
+  }
+  .var-slider:disabled::-webkit-slider-thumb {
+    background: #9E9E9E;
+    cursor: not-allowed;
+  }
+  .var-value-num {
+    font-size: 22px;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: right;
+  }
+  .var-unit {
+    font-size: 13px;
+    color: #616161;
+    font-weight: 400;
+  }
+  .var-desc {
+    font-size: 12px;
+    color: #616161;
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  /* ---- Verdict Panel ---- */
+  .verdict {
+    border-radius: 4px;
+    padding: 28px;
+    line-height: 1.8;
+    transition: all 0.3s;
+  }
+  .verdict.ok {
+    background: #F0F7F0;
+    border: 2px solid #00A92F;
+  }
+  .verdict.warn {
+    background: #FFF8F0;
+    border: 2px solid #FF7800;
+  }
+  .verdict.danger {
+    background: #FFF0F0;
+    border: 2px solid #D41836;
+  }
+
+  .verdict-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  .verdict h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .verdict.ok h2 { color: #00A92F; }
+  .verdict.warn h2 { color: #FF7800; }
+  .verdict.danger h2 { color: #D41836; }
+
+  .verdict p {
+    font-size: 15px;
+    color: #212121;
+  }
+  .verdict .script {
+    margin-top: 16px;
+    padding: 16px;
+    background: #FFFFFF;
+    border-radius: 4px;
+    border: 1px solid #E0E0E0;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #212121;
+  }
+  .verdict .script-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #264AF4;
+    margin-bottom: 6px;
+  }
+
+  /* ---- Pressure indicator ---- */
+  .pressure-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .pressure-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: #E0E0E0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .pressure-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s, background 0.5s;
+  }
+  .pressure-label {
+    font-size: 11px;
+    color: #616161;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .var-grid { grid-template-columns: 1fr; }
+    .scenarios { flex-wrap: wrap; }
+    .scenario-btn { flex: 1; min-width: 120px; font-size: 12px; padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>何を固定し、何を調整するか</h1>
+  <p class="subtitle">4つの変数を動かして、プロジェクトの制約関係を体感する</p>
+</div>
+
+<div class="scenarios">
+  <button class="scenario-btn active" onclick="applyScenario('current', this)">今の状況</button>
+  <button class="scenario-btn" onclick="applyScenario('scope-fixed', this)">スコープも固定</button>
+  <button class="scenario-btn" onclick="applyScenario('deadline-flex', this)">期限を柔軟に</button>
+  <button class="scenario-btn" onclick="applyScenario('all-fixed', this)">全部固定</button>
+</div>
+
+<div class="main-container">
+
+  <!-- Balance Bar -->
+  <div class="balance-section">
+    <div class="balance-header">
+      <span class="balance-label">開発キャパシティ vs 必要な開発量</span>
+      <span class="balance-label" id="balance-status"></span>
+    </div>
+    <div class="balance-bar-wrap">
+      <div class="balance-bar-supply" id="bar-supply">供給</div>
+      <div class="balance-bar-demand-zone" id="bar-demand-zone"></div>
+      <div class="balance-bar-demand" id="bar-demand" data-label="必要量"></div>
+    </div>
+    <div class="balance-legend">
+      <span class="legend-supply">体制 x 期限 = キャパ</span>
+      <span class="legend-demand">スコープから逆算した必要量</span>
+    </div>
+  </div>
+
+  <!-- 4 Variables -->
+  <div class="var-grid">
+    <!-- Team -->
+    <div class="var-card is-fixed" id="card-team">
+      <div class="var-card-top">
+        <span class="var-name">体制</span>
+        <button class="lock-toggle locked" id="toggle-team" onclick="toggleLock('team')"></button>
+      </div>
+      <div class="var-status fixed" id="label-team">固定 &#x2014; 変更できない</div>
+      <div class="var-value-row">
+        <input type="range" class="var-slider" min="1" max="10" value="5" id="slider-team" disabled oninput="onSlider()">
+        <div class="var-value-num" id="val-team">5<span class="var-unit">名</span></div>
+      </div>
+      <div class="pressure-row" id="pressure-team" style="display:none">
+        <span style="font-size:11px;color:#616161">負荷</span>
+        <div class="pressure-bar-bg"><div class="pressure-bar-fill" id="pfill-team"></div></div>
+        <span class="pressure-label" id="plabel-team"></span>
+      </div>
+      <div class="var-desc">内製チームの人数。増員の見込みなし。</div>
+    </div>
+
+    <!-- Deadline -->
+    <div class="var-card is-fixed" id="card-deadline">
+      <div class="var-card-top">
+        <span class="var-name">期限</span>
+        <button class="lock-toggle locked" id="toggle-deadline" onclick="toggleLock('deadline')"></button>
+      </div>
+      <div class="var-status fixed" id="label-deadline">固定 &#x2014; 経営からの要求</div>
+      <div class="var-value-row">
+        <input type="range" class="var-slider" min="1" max="12" value="6" id="slider-deadline" disabled oninput="onSlider()">
+        <div class="var-value-num" id="val-deadline">6<span class="var-unit">ヶ月</span></div>
+      </div>
+      <div class="pressure-row" id="pressure-deadline" style="display:none">
+        <span style="font-size:11px;color:#616161">負荷</span>
+        <div class="pressure-bar-bg"><div class="pressure-bar-fill" id="pfill-deadline"></div></div>
+        <span class="pressure-label" id="plabel-deadline"></span>
+      </div>
+      <div class="var-desc">経営から提示されたリリース期限。</div>
+    </div>
+
+    <!-- Scope -->
+    <div class="var-card is-variable" id="card-scope">
+      <div class="var-card-top">
+        <span class="var-name">スコープ</span>
+        <button class="lock-toggle unlocked" id="toggle-scope" onclick="toggleLock('scope')"></button>
+      </div>
+      <div class="var-status variable" id="label-scope">可変 &#x2014; ここで調整する</div>
+      <div class="var-value-row">
+        <input type="range" class="var-slider" min="1" max="10" value="7" id="slider-scope" oninput="onSlider()">
+        <div class="var-value-num" id="val-scope">7<span class="var-unit">割</span></div>
+      </div>
+      <div class="pressure-row" id="pressure-scope" style="display:none">
+        <span style="font-size:11px;color:#616161">負荷</span>
+        <div class="pressure-bar-bg"><div class="pressure-bar-fill" id="pfill-scope"></div></div>
+        <span class="pressure-label" id="plabel-scope"></span>
+      </div>
+      <div class="var-desc">初回リリースに含める機能の範囲。</div>
+    </div>
+
+    <!-- Quality -->
+    <div class="var-card is-fixed" id="card-quality">
+      <div class="var-card-top">
+        <span class="var-name">品質</span>
+        <button class="lock-toggle locked" id="toggle-quality" onclick="toggleLock('quality')"></button>
+      </div>
+      <div class="var-status fixed" id="label-quality">固定 &#x2014; 落とせない</div>
+      <div class="var-value-row">
+        <input type="range" class="var-slider" min="1" max="10" value="8" id="slider-quality" disabled oninput="onSlider()">
+        <div class="var-value-num" id="val-quality">8<span class="var-unit">/10</span></div>
+      </div>
+      <div class="pressure-row" id="pressure-quality" style="display:none">
+        <span style="font-size:11px;color:#616161">負荷</span>
+        <div class="pressure-bar-bg"><div class="pressure-bar-fill" id="pfill-quality"></div></div>
+        <span class="pressure-label" id="plabel-quality"></span>
+      </div>
+      <div class="var-desc">品質基準。落とすと技術負債が膨らむ。</div>
+    </div>
+  </div>
+
+  <!-- Verdict -->
+  <div class="verdict ok" id="verdict">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<script>
+const S = {
+  team:     { locked: true,  value: 5 },
+  deadline: { locked: true,  value: 6 },
+  scope:    { locked: false, value: 7 },
+  quality:  { locked: true,  value: 8 },
+};
+
+const NAMES = { team:'体制', deadline:'期限', scope:'スコープ', quality:'品質' };
+const UNITS = { team:'名', deadline:'ヶ月', scope:'割', quality:'/10' };
+const FIX_LABEL = { team:'固定 \u2014 変更できない', deadline:'固定 \u2014 経営からの要求', scope:'固定 \u2014 削れない', quality:'固定 \u2014 落とせない' };
+const VAR_LABEL = { team:'可変 \u2014 増員で対応', deadline:'可変 \u2014 延長で対応', scope:'可変 \u2014 ここで調整する', quality:'可変 \u2014 基準を下げる' };
+
+function toggleLock(k) {
+  S[k].locked = !S[k].locked;
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  render();
+}
+
+function onSlider() {
+  ['team','deadline','scope','quality'].forEach(k => {
+    S[k].value = parseInt(document.getElementById('slider-' + k).value);
+  });
+  render();
+}
+
+function render() {
+  const keys = ['team','deadline','scope','quality'];
+
+  keys.forEach(k => {
+    const s = S[k];
+    const card = document.getElementById('card-' + k);
+    const toggle = document.getElementById('toggle-' + k);
+    const label = document.getElementById('label-' + k);
+    const slider = document.getElementById('slider-' + k);
+    const valEl = document.getElementById('val-' + k);
+
+    card.className = 'var-card ' + (s.locked ? 'is-fixed' : 'is-variable');
+    toggle.className = 'lock-toggle ' + (s.locked ? 'locked' : 'unlocked');
+    label.className = 'var-status ' + (s.locked ? 'fixed' : 'variable');
+    label.innerHTML = s.locked ? FIX_LABEL[k] : VAR_LABEL[k];
+    slider.disabled = s.locked;
+    slider.value = s.value;
+    valEl.innerHTML = s.value + '<span class="var-unit">' + UNITS[k] + '</span>';
+  });
+
+  updateBalance();
+  updatePressure();
+  updateVerdict();
+}
+
+function getCapacity() {
+  return S.team.value * S.deadline.value;
+}
+function getDemand() {
+  // scope 10割 = full, quality adds overhead
+  const qualityMultiplier = 0.5 + (S.quality.value / 10) * 0.8; // 0.5〜1.3
+  return S.scope.value * 3 * qualityMultiplier;
+}
+
+function updateBalance() {
+  const cap = getCapacity();
+  const dem = getDemand();
+  const maxVal = Math.max(cap, dem, 30) * 1.2;
+
+  const supplyPct = (cap / maxVal) * 100;
+  const demandPct = (dem / maxVal) * 100;
+
+  document.getElementById('bar-supply').style.width = supplyPct + '%';
+  document.getElementById('bar-supply').textContent = cap + ' 人月';
+
+  document.getElementById('bar-demand').style.left = Math.min(demandPct, 98) + '%';
+  document.getElementById('bar-demand').setAttribute('data-label', '必要: ' + Math.round(dem) + ' 人月');
+
+  const zone = document.getElementById('bar-demand-zone');
+  if (dem > cap) {
+    zone.style.left = supplyPct + '%';
+    zone.style.width = (demandPct - supplyPct) + '%';
+    zone.style.display = 'block';
+  } else {
+    zone.style.display = 'none';
+  }
+
+  const statusEl = document.getElementById('balance-status');
+  const ratio = cap / dem;
+  if (ratio >= 1.15) {
+    statusEl.textContent = 'OK: バッファあり';
+    statusEl.style.color = '#00A92F';
+  } else if (ratio >= 0.85) {
+    statusEl.textContent = '注意: バッファ少';
+    statusEl.style.color = '#FF7800';
+  } else {
+    statusEl.textContent = '不足: キャパオーバー';
+    statusEl.style.color = '#D41836';
+  }
+}
+
+function updatePressure() {
+  const lockedCount = Object.values(S).filter(v => v.locked).length;
+  const keys = ['team','deadline','scope','quality'];
+
+  keys.forEach(k => {
+    const row = document.getElementById('pressure-' + k);
+    const fill = document.getElementById('pfill-' + k);
+    const plabel = document.getElementById('plabel-' + k);
+    const card = document.getElementById('card-' + k);
+
+    if (!S[k].locked) {
+      // Variable items receive pressure from locked items
+      const pressure = Math.min(lockedCount / 3 * 100, 100);
+      row.style.display = 'flex';
+      fill.style.width = pressure + '%';
+      if (pressure > 80) {
+        fill.style.background = '#D41836';
+        plabel.textContent = '高い';
+        plabel.style.color = '#D41836';
+        card.className = 'var-card is-danger';
+      } else if (pressure > 50) {
+        fill.style.background = '#FF7800';
+        plabel.textContent = '中';
+        plabel.style.color = '#FF7800';
+      } else {
+        fill.style.background = '#00A92F';
+        plabel.textContent = '低い';
+        plabel.style.color = '#00A92F';
+      }
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+
+function updateVerdict() {
+  const lockedKeys = Object.keys(S).filter(k => S[k].locked);
+  const variableKeys = Object.keys(S).filter(k => !S[k].locked);
+  const lockedCount = lockedKeys.length;
+  const cap = getCapacity();
+  const dem = getDemand();
+  const ratio = cap / dem;
+
+  const box = document.getElementById('verdict');
+  let level, title, body, script;
+
+  if (lockedCount === 4) {
+    level = 'danger';
+    title = 'この計画は破綻します';
+    body = '4つ全てを固定すると、調整する余地がどこにもありません。体制も増やせない、期限も動かせない、スコープも削れない、品質も落とせない。これは「何があっても対応できない」状態です。';
+    script = '「全てを固定した計画は、最初の想定外で破綻します。どれか1つ、調整弁を決めさせてください。」';
+  } else if (lockedCount === 3) {
+    const vk = variableKeys[0];
+    if (vk === 'scope') {
+      level = ratio >= 0.85 ? 'ok' : 'warn';
+      title = '現実的な計画です';
+      body = '体制・期限・品質を固定し、スコープで調整する。アジャイル開発の王道パターンです。初回リリースに入れる機能を、開発可能な範囲に絞ります。';
+      script = '「期限は守ります。品質も落としません。そのために、初回リリースの機能範囲を開発可能なラインに調整します。○月末にスコープ案をお出しします。」';
+    } else if (vk === 'quality') {
+      level = 'danger';
+      title = '品質を削ると後で破綻します';
+      body = 'スコープを全部入れるために品質を下げると、バグ・手戻り・技術負債が蓄積します。半年後には開発速度が半分以下に落ち、結局スケジュールが遅れます。';
+      script = '「品質を落とす選択肢もありますが、過去の経験上、3〜6ヶ月後に開発速度が大幅に低下します。スコープ調整の方が中長期で確実です。」';
+    } else if (vk === 'deadline') {
+      level = 'warn';
+      title = '期限延長は可能だが交渉が必要';
+      body = '全機能を品質高く出したいなら、期限を延ばすのが合理的です。ただし経営が期限固定を求めている場合、延長の理由と代替案をセットで提示する必要があります。';
+      script = '「全機能をこの品質で出すには、○ヶ月の延長が必要です。もし期限を動かせない場合は、初回リリースの機能を絞る形で対応します。」';
+    } else {
+      level = 'warn';
+      title = '増員は効果が出るまで時間がかかる';
+      body = '増員で対応する場合、新メンバーの立ち上がりに2〜3ヶ月かかります。期限が近い場合、増員よりスコープ調整の方が即効性があります。';
+      script = '「増員は可能ですが、戦力化まで2〜3ヶ月を見る必要があります。期限が○ヶ月の場合、スコープ調整の方が確実です。」';
+    }
+  } else if (lockedCount === 2) {
+    level = 'ok';
+    title = '柔軟性は高いが、優先順位が必要';
+    body = `調整弁が2つ（${variableKeys.map(k=>NAMES[k]).join('と')}）あるため選択肢は広いですが、「どちらを先に動かすか」のルールを事前に決めておかないと、判断が場当たり的になります。`;
+    script = '「まず' + NAMES[variableKeys[0]] + 'で調整し、それでも収まらなければ' + NAMES[variableKeys[1]] + 'で対応します。この順番でよろしいですか？」';
+  } else {
+    level = 'warn';
+    title = '固定要素が少なすぎます';
+    body = '制約が少なすぎると「何でもあり」になり、逆に計画の蓋然性が語れません。少なくとも2つは固定して、制約の中で最適化する方が計画として成り立ちます。';
+    script = '「計画を立てるには、最低限の制約が必要です。体制と品質を固定した上で、期限とスコープのどちらで調整するか決めましょう。」';
+  }
+
+  box.className = 'verdict ' + level;
+  box.innerHTML = `
+    <h2>${title}</h2>
+    <p>${body}</p>
+    <div class="script">
+      <div class="script-label">経営への説明（そのまま使えます）</div>
+      ${script}
+    </div>
+  `;
+}
+
+function applyScenario(name, btn) {
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (name === 'current') {
+    S.team.locked = true;  S.team.value = 5;
+    S.deadline.locked = true; S.deadline.value = 6;
+    S.scope.locked = false; S.scope.value = 7;
+    S.quality.locked = true; S.quality.value = 8;
+  } else if (name === 'scope-fixed') {
+    S.team.locked = true;  S.team.value = 5;
+    S.deadline.locked = true; S.deadline.value = 6;
+    S.scope.locked = true; S.scope.value = 10;
+    S.quality.locked = false; S.quality.value = 8;
+  } else if (name === 'deadline-flex') {
+    S.team.locked = true;  S.team.value = 5;
+    S.deadline.locked = false; S.deadline.value = 9;
+    S.scope.locked = false; S.scope.value = 10;
+    S.quality.locked = true; S.quality.value = 8;
+  } else if (name === 'all-fixed') {
+    S.team.locked = true;  S.team.value = 5;
+    S.deadline.locked = true; S.deadline.value = 6;
+    S.scope.locked = true; S.scope.value = 10;
+    S.quality.locked = true; S.quality.value = 8;
+  }
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

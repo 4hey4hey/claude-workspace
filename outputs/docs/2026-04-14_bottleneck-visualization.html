@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ボトルネックはどこか — 開発を速くしても全体は速くならない</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #264AF4;
+    --accent: #D41836;
+    --accent-warm: #FF7800;
+    --success: #00A92F;
+    --bg: #FAFBFD;
+    --card: #FFFFFF;
+    --text: #212121;
+    --text-mid: #616161;
+    --text-light: #9E9E9E;
+    --border: #E8ECF0;
+    --phase-biz: #5C6BC0;
+    --phase-premise: #D41836;
+    --phase-req: #FF7800;
+    --phase-dev: #264AF4;
+    --phase-verify: #00A92F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    background: linear-gradient(180deg, #f0f2f8 0%, var(--bg) 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--navy);
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-family: 'Source Code Pro', monospace;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.35;
+    color: var(--navy);
+    max-width: 800px;
+  }
+
+  .hero h1 .red { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    text-align: center;
+    max-width: 600px;
+    margin-top: 1.5rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    animation: bounce 2s ease infinite;
+  }
+
+  .scroll-hint .arrow {
+    width: 24px; height: 24px;
+    border-right: 2px solid var(--text-light);
+    border-bottom: 2px solid var(--text-light);
+    transform: rotate(45deg);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--navy-light);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .section-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .section-desc {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ===== VALUE CHAIN ===== */
+  .chain-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .chain-zones {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.2rem;
+    position: relative;
+  }
+
+  .chain-zone {
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-bottom: 3px solid;
+  }
+
+  .chain-zone.pdm { flex: 2; border-color: var(--phase-premise); color: var(--phase-premise); }
+  .chain-zone.po { flex: 3; border-color: var(--navy-light); color: var(--navy-light); }
+
+  .chain-zone-divider {
+    position: absolute;
+    left: 40%;
+    top: -8px;
+    bottom: -8px;
+    width: 2px;
+    background: repeating-linear-gradient(to bottom, var(--text-light) 0, var(--text-light) 4px, transparent 4px, transparent 8px);
+  }
+
+  .chain {
+    display: flex;
+    gap: 3px;
+    align-items: stretch;
+    min-height: 100px;
+  }
+
+  .phase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border-radius: 3px;
+    text-align: center;
+    position: relative;
+    transition: all 0.6s cubic-bezier(.22,1,.36,1);
+    cursor: default;
+  }
+
+  .phase-name {
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .phase-sub {
+    font-size: 0.65rem;
+    opacity: 0.7;
+  }
+
+  .phase-owner {
+    font-size: 0.6rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .phase-days {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+  }
+
+  .phase-days-label {
+    font-size: 0.55rem;
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  .p-biz { background: #E8EAF6; color: #283593; flex: 1; }
+  .p-premise { background: #FFEBEE; color: #B71C1C; flex: 2.5; }
+  .p-premise.bottleneck {
+    border: 2px dashed var(--accent);
+    box-shadow: 0 0 0 4px rgba(212,24,54,0.08);
+  }
+  .p-req { background: #FFF3E0; color: #E65100; flex: 1.5; }
+  .p-dev { background: #E3F2FD; color: #0D47A1; flex: 1.2; }
+  .p-verify { background: #E8F5E9; color: #1B5E20; flex: 0.8; }
+
+  .arrow-between {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    padding: 0 2px;
+    flex-shrink: 0;
+  }
+
+  /* ===== BOTTLENECK INDICATOR ===== */
+  .bottleneck-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    animation: pulse-badge 2s ease infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,24,54,0.3); }
+    50% { box-shadow: 0 0 0 6px rgba(212,24,54,0); }
+  }
+
+  /* ===== LEAD TIME BAR ===== */
+  .leadtime-bar {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .leadtime-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+
+  .leadtime-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-mid);
+  }
+
+  .leadtime-value {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--navy);
+    transition: all 0.6s ease;
+  }
+
+  .leadtime-track {
+    height: 32px;
+    display: flex;
+    border-radius: 3px;
+    overflow: hidden;
+    gap: 1px;
+  }
+
+  .lt-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    transition: flex 0.8s cubic-bezier(.22,1,.36,1);
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .lt-biz { background: var(--phase-biz); }
+  .lt-premise { background: var(--phase-premise); }
+  .lt-req { background: var(--phase-req); }
+  .lt-dev { background: var(--phase-dev); }
+  .lt-verify { background: var(--phase-verify); }
+
+  /* ===== SIMULATOR ===== */
+  .sim-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    margin-top: 3rem;
+  }
+
+  .sim-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .sim-desc {
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    margin-bottom: 2rem;
+  }
+
+  .scenarios {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .scenario {
+    padding: 1.5rem;
+    border-radius: 3px;
+    border: 2px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .scenario:hover { border-color: var(--navy-light); }
+
+  .scenario.active {
+    border-color: var(--navy-light);
+    background: #f8f9ff;
+  }
+
+  .scenario.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--navy-light);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .scenario-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .scenario-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .scenario-tag {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .tag-neutral { background: #E8ECF0; color: var(--text-mid); }
+  .tag-bad { background: #FFEBEE; color: var(--accent); }
+  .tag-good { background: #E8F5E9; color: var(--success); }
+
+  .scenario-detail {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    margin-bottom: 1rem;
+  }
+
+  .scenario-bar-container {
+    position: relative;
+  }
+
+  .scenario-bar {
+    height: 28px;
+    display: flex;
+    border-radius: 3px;
+    overflow: hidden;
+    gap: 1px;
+    transition: all 0.6s ease;
+  }
+
+  .sb-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    transition: flex 0.8s cubic-bezier(.22,1,.36,1);
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .sb-seg.speed-up {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.15) 3px,
+      rgba(255,255,255,0.15) 6px
+    );
+  }
+
+  .scenario-total {
+    position: absolute;
+    right: 0;
+    top: -22px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.6s ease;
+  }
+
+  .scenario-labels {
+    display: flex;
+    gap: 1px;
+    margin-top: 4px;
+  }
+
+  .scenario-labels span {
+    font-size: 0.55rem;
+    color: var(--text-light);
+    text-align: center;
+    transition: flex 0.8s cubic-bezier(.22,1,.36,1);
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  /* ===== INSIGHT ===== */
+  .insight-box {
+    background: #FFF8E1;
+    border-left: 4px solid var(--accent-warm);
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .insight-box h3 {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-box p {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.8;
+  }
+
+  .insight-box strong { color: var(--accent); }
+
+  /* ===== METAPHOR ===== */
+  .metaphor-section {
+    margin-top: 4rem;
+    padding: 3rem 2rem;
+    background: var(--navy);
+    border-radius: 4px;
+    color: #fff;
+  }
+
+  .metaphor-section .section-label { color: rgba(255,255,255,0.5); }
+  .metaphor-section .section-title { color: #fff; }
+
+  .pipe-viz {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 2rem 0;
+    height: 120px;
+  }
+
+  .pipe {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.6s ease;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+
+  .pipe-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.1em;
+    opacity: 0.9;
+  }
+
+  .pipe-wide {
+    flex: 3;
+    background: rgba(255,255,255,0.05);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .pipe-narrow {
+    flex: 1;
+    background: rgba(212,24,54,0.3);
+    border-color: var(--accent);
+    position: relative;
+  }
+
+  .pipe-narrow::after {
+    content: 'BOTTLENECK';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .pipe-medium {
+    flex: 2;
+    background: rgba(255,255,255,0.05);
+  }
+
+  .pipe-end {
+    flex: 1.5;
+    background: rgba(255,255,255,0.05);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .water-flow {
+    position: absolute;
+    left: 0; right: 0;
+    height: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    overflow: hidden;
+  }
+
+  .water-dot {
+    position: absolute;
+    width: 8px;
+    height: 4px;
+    background: rgba(38,74,244,0.6);
+    border-radius: 2px;
+    animation: flow 3s linear infinite;
+  }
+
+  @keyframes flow {
+    0% { left: -10px; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: calc(100% + 10px); opacity: 0; }
+  }
+
+  .metaphor-text {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.9;
+    max-width: 700px;
+  }
+
+  .metaphor-text strong { color: #fff; }
+
+  /* ===== TAKEAWAY ===== */
+  .takeaway {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .takeaway-title {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 2rem;
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .action-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .action-card:hover {
+    border-color: var(--navy-light);
+    transform: translateY(-2px);
+  }
+
+  .action-num {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.7rem;
+    color: var(--navy-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .action-card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+
+  .action-card p {
+    font-size: 0.78rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+
+  /* ===== ANIMATION ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .chain { flex-wrap: wrap; }
+    .phase { min-height: 80px; }
+    .chain-zones { display: none; }
+    .arrow-between { display: none; }
+    .pipe-viz { height: 80px; }
+    section { padding: 3rem 1rem; }
+    .chain-container, .sim-section { padding: 1.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-tag">Theory of Constraints / バリューチェーン分析</div>
+  <h1>開発を2倍速くしても、<br><span class="red">リードタイムは14%しか縮まない</span></h1>
+  <p class="hero-sub">
+    プロダクト開発のボトルネックは「実装」ではない。<br>
+    施策の前提整理・要求定義がスループットを支配している。
+  </p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</div>
+
+<!-- ===== VALUE CHAIN ===== -->
+<section>
+  <div class="fade-in">
+    <div class="section-label">01 — CURRENT STATE</div>
+    <div class="section-title">バリューチェーン全体像</div>
+    <p class="section-desc">
+      1つの施策が「事業ニーズ」から「検証完了」まで到達するには平均70営業日。
+      開発工程はその<strong>21%</strong>にすぎない。
+    </p>
+  </div>
+
+  <div class="chain-container fade-in">
+    <div class="chain-zones">
+      <div class="chain-zone pdm">PdMの守備範囲（What / Why）</div>
+      <div class="chain-zone po">POの守備範囲（How / When）</div>
+      <div class="chain-zone-divider"></div>
+    </div>
+
+    <div class="chain" id="mainChain">
+      <div class="phase p-biz" style="flex:1">
+        <div class="phase-name">事業ニーズ</div>
+        <div class="phase-sub">What / Why</div>
+        <div class="phase-days">10</div>
+        <div class="phase-days-label">営業日</div>
+        <div class="phase-owner">PdM</div>
+      </div>
+      <div class="arrow-between">&#9655;</div>
+      <div class="phase p-premise bottleneck" style="flex:2.5">
+        <div class="bottleneck-badge">BOTTLENECK</div>
+        <div class="phase-name">施策の前提整理<br>要求定義</div>
+        <div class="phase-sub">as-is/to-be・ビジネス試算<br>業務フロー・SH合意・契約整理</div>
+        <div class="phase-days">25</div>
+        <div class="phase-days-label">営業日</div>
+        <div class="phase-owner">PdM</div>
+      </div>
+      <div class="arrow-between">&#9655;</div>
+      <div class="phase p-req" style="flex:1.5">
+        <div class="phase-name">要件定義<br>要件分割</div>
+        <div class="phase-sub">How / When</div>
+        <div class="phase-days">10</div>
+        <div class="phase-days-label">営業日</div>
+        <div class="phase-owner">PO</div>
+      </div>
+      <div class="arrow-between">&#9655;</div>
+      <div class="phase p-dev" style="flex:1.2">
+        <div class="phase-name">開発〜<br>リリース</div>
+        <div class="phase-sub">実行</div>
+        <div class="phase-days">15</div>
+        <div class="phase-days-label">営業日</div>
+        <div class="phase-owner">PO + Dev</div>
+      </div>
+      <div class="arrow-between">&#9655;</div>
+      <div class="phase p-verify" style="flex:0.8">
+        <div class="phase-name">検証</div>
+        <div class="phase-sub">学習ループ</div>
+        <div class="phase-days">10</div>
+        <div class="phase-days-label">営業日</div>
+        <div class="phase-owner">PO + PdM</div>
+      </div>
+    </div>
+
+    <div class="leadtime-bar">
+      <div class="leadtime-header">
+        <span class="leadtime-label">Total Lead Time</span>
+        <span class="leadtime-value" id="totalLT">70 営業日</span>
+      </div>
+      <div class="leadtime-track">
+        <div class="lt-seg lt-biz" style="flex:10">10日</div>
+        <div class="lt-seg lt-premise" style="flex:25">25日</div>
+        <div class="lt-seg lt-req" style="flex:10">10日</div>
+        <div class="lt-seg lt-dev" style="flex:15">15日</div>
+        <div class="lt-seg lt-verify" style="flex:10">10日</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SIMULATOR ===== -->
+  <div class="sim-section fade-in">
+    <div class="sim-title">シナリオ比較 — どこを改善すると全体が速くなるか？</div>
+    <div class="sim-desc">各シナリオをクリックして、リードタイムの変化を比較してください。</div>
+
+    <div class="scenarios">
+      <!-- Scenario A: Current -->
+      <div class="scenario active" data-scenario="current" onclick="selectScenario('current')">
+        <div class="scenario-header">
+          <span class="scenario-name">A. 現状（ベースライン）</span>
+          <span class="scenario-tag tag-neutral">70営業日</span>
+        </div>
+        <div class="scenario-detail">すべてのフェーズが現状どおり。</div>
+        <div class="scenario-bar-container">
+          <span class="scenario-total" style="color:var(--navy)">70日</span>
+          <div class="scenario-bar">
+            <div class="sb-seg lt-biz" style="flex:10">10</div>
+            <div class="sb-seg lt-premise" style="flex:25">25</div>
+            <div class="sb-seg lt-req" style="flex:10">10</div>
+            <div class="sb-seg lt-dev" style="flex:15">15</div>
+            <div class="sb-seg lt-verify" style="flex:10">10</div>
+          </div>
+          <div class="scenario-labels">
+            <span style="flex:10">事業</span>
+            <span style="flex:25">前提整理</span>
+            <span style="flex:10">要件</span>
+            <span style="flex:15">開発</span>
+            <span style="flex:10">検証</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario B: Dev x2 -->
+      <div class="scenario" data-scenario="dev-fast" onclick="selectScenario('dev-fast')">
+        <div class="scenario-header">
+          <span class="scenario-name">B. 開発を2倍速くする</span>
+          <span class="scenario-tag tag-bad">60営業日（-14%）</span>
+        </div>
+        <div class="scenario-detail">
+          開発スプリントを15日 → 7日に圧縮。しかし上流が詰まっているため、開発チームは待ち時間が増えるだけ。
+        </div>
+        <div class="scenario-bar-container">
+          <span class="scenario-total" style="color:var(--accent)">60日 — ほぼ変わらない</span>
+          <div class="scenario-bar">
+            <div class="sb-seg lt-biz" style="flex:10">10</div>
+            <div class="sb-seg lt-premise" style="flex:25">25</div>
+            <div class="sb-seg lt-req" style="flex:10">10</div>
+            <div class="sb-seg lt-dev speed-up" style="flex:7">7</div>
+            <div class="sb-seg lt-verify" style="flex:10">10</div>
+          </div>
+          <div class="scenario-labels">
+            <span style="flex:10">事業</span>
+            <span style="flex:25">前提整理</span>
+            <span style="flex:10">要件</span>
+            <span style="flex:7">開発 x2</span>
+            <span style="flex:10">検証</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario C: Upstream fix -->
+      <div class="scenario" data-scenario="upstream-fix" onclick="selectScenario('upstream-fix')">
+        <div class="scenario-header">
+          <span class="scenario-name">C. 前提整理を仕組み化する</span>
+          <span class="scenario-tag tag-good">45営業日（-36%）</span>
+        </div>
+        <div class="scenario-detail">
+          PdMが「前提を揃えるチェックリスト」を持ち、SH合意を事前に取る仕組みを作る。25日 → 10日に短縮。全体のスループットが劇的に改善。
+        </div>
+        <div class="scenario-bar-container">
+          <span class="scenario-total" style="color:var(--success)">45日 — 36%短縮</span>
+          <div class="scenario-bar">
+            <div class="sb-seg lt-biz" style="flex:10">10</div>
+            <div class="sb-seg lt-premise speed-up" style="flex:10">10</div>
+            <div class="sb-seg lt-req" style="flex:7">7</div>
+            <div class="sb-seg lt-dev" style="flex:10">10</div>
+            <div class="sb-seg lt-verify" style="flex:8">8</div>
+          </div>
+          <div class="scenario-labels">
+            <span style="flex:10">事業</span>
+            <span style="flex:10">前提整理</span>
+            <span style="flex:7">要件</span>
+            <span style="flex:10">開発</span>
+            <span style="flex:8">検証</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <h3>制約理論（TOC）の原則</h3>
+      <p>
+        システムの産出量（スループット）は、<strong>最も遅い工程（制約）</strong>で決まる。<br>
+        制約以外の工程をいくら速くしても、全体は速くならない。むしろ仕掛品（WIP）が積み上がり、切り替えコストが増える。<br><br>
+        現状のボトルネックは<strong>「施策の前提整理・要求定義」</strong>。ここを解消しない限り、開発チームの改善投資はROIが出ない。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PIPE METAPHOR ===== -->
+<section>
+  <div class="metaphor-section fade-in">
+    <div class="section-label">02 — METAPHOR</div>
+    <div class="section-title">水道管の比喩で考える</div>
+
+    <div class="pipe-viz">
+      <div class="pipe pipe-wide">
+        <span class="pipe-label">事業ニーズ</span>
+        <div class="water-flow">
+          <div class="water-dot" style="animation-delay:0s"></div>
+          <div class="water-dot" style="animation-delay:0.8s"></div>
+          <div class="water-dot" style="animation-delay:1.6s"></div>
+        </div>
+      </div>
+      <div class="pipe pipe-narrow">
+        <span class="pipe-label">前提整理</span>
+        <div class="water-flow">
+          <div class="water-dot" style="animation-delay:0.3s"></div>
+        </div>
+      </div>
+      <div class="pipe pipe-medium">
+        <span class="pipe-label">要件定義</span>
+        <div class="water-flow">
+          <div class="water-dot" style="animation-delay:0.5s"></div>
+        </div>
+      </div>
+      <div class="pipe pipe-end">
+        <span class="pipe-label">開発・検証</span>
+        <div class="water-flow">
+          <div class="water-dot" style="animation-delay:0.7s"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="metaphor-text">
+      水は<strong>最も細い管</strong>の速度でしか流れない。<br>
+      下流の管（開発）をいくら太くしても、上流の狭い管（前提整理）が水量を支配する。<br><br>
+      開発チームへの投資が無駄とは言わない。しかし<strong>制約工程を先に広げないと、投資対効果が出ない</strong>。
+    </p>
+  </div>
+</section>
+
+<!-- ===== TAKEAWAY ===== -->
+<section>
+  <div class="takeaway fade-in">
+    <div class="section-label">03 — NEXT ACTION</div>
+    <div class="takeaway-title">では、何をすべきか</div>
+
+    <div class="actions">
+      <div class="action-card">
+        <div class="action-num">01 — 最優先</div>
+        <h4>前提整理のチェックリスト化</h4>
+        <p>
+          施策起案時に「as-is/to-be」「SH合意状況」「ビジネス試算」が揃っているかを確認するゲートを設ける。PdMが属人的にやっていた工程を仕組み化する。
+        </p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">02</div>
+        <h4>SH合意の事前バッチ化</h4>
+        <p>
+          月次のSHレビュー会を設定し、施策の前提を一括で承認する場を作る。個別調整の往復を25日→10日へ圧縮する。
+        </p>
+      </div>
+      <div class="action-card">
+        <div class="action-num">03</div>
+        <h4>WIP制限の導入</h4>
+        <p>
+          前提が揃っていない施策を開発キューに入れない。「Ready」の定義を明確にし、開発チームの空転を防ぐ。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  制約理論（Theory of Constraints） — E.ゴールドラット『ザ・ゴール』に基づく / 2026-04-14
+</footer>
+
+<script>
+  // Scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Scenario selection
+  function selectScenario(id) {
+    document.querySelectorAll('.scenario').forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-scenario="${id}"]`).classList.add('active');
+  }
+</script>
+</body>
+</html>
