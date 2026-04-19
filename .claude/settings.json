@@ -20,11 +20,21 @@
       "WebFetch(domain:slide.meguro.ryuzee.com)",
       "WebFetch(domain:www.odd-e.jp)",
       "WebFetch(domain:www.servantworks.co.jp)",
-      "WebFetch(domain:www.scrum.org)"
+      "WebFetch(domain:www.scrum.org)",
+      "Bash(xargs -I {} basename {})"
     ]
   },
   "hooks": {
     "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
+          }
+        ]
+      },
       {
         "matcher": "Bash",
         "hooks": [
@@ -37,6 +47,28 @@
             "type": "command",
             "command": "bash /Users/sugisaki/Documents/Claude/.claude/hooks/warn-pkg-install.sh",
             "statusMessage": "パッケージインストール検査中..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
           }
         ]
       }

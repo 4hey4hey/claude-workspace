@@ -8,8 +8,19 @@
 ├── node_modules/                    # npm依存（ルート固定）
 ├── .agents/                         # 3rd partyスキル（vercel-labs等）
 ├── .claude/                         # Claude Code設定（ルート固定）
+│   ├── settings.json                # Claude Code 全体設定（権限・フック・環境変数）
+│   ├── settings.local.json          # ローカル設定（機密・環境固有、git管理外）
+│   ├── scheduled_tasks.json         # 定期実行タスクの登録情報（自動生成）
+│   ├── scheduled_tasks.lock         # スケジューラのロックファイル（自動生成）
 │   ├── refs/                        # CLAUDE.md から @import される参照ドキュメント
 │   ├── agents/                      # カスタムサブエージェント定義
+│   │   ├── context-researcher.md    #   プロジェクトコンテキスト調査
+│   │   ├── skill-optimizer.md       #   スキル自己最適化メタエージェント
+│   │   └── stakeholder-reviewer.md  #   ステークホルダー向け文書レビュー
+│   ├── commands/                    # ユーザー定義スラッシュコマンド
+│   │   └── periodic-commit.md       #   毎日自動 commit/push 手順
+│   ├── skills/                      # 3rd partyスキルへのシンボリックリンク置き場
+│   │   └── find-skills → ../../.agents/skills/find-skills
 │   └── hooks/                       # フックスクリプト（安全ガードレール）
 │       ├── block-destructive-cmd.sh #   破壊的コマンドブロック（rm -r, force push等）
 │       ├── warn-pkg-install.sh      #   パッケージインストール警告（サプライチェーンリスク）
@@ -39,18 +50,23 @@
 │       ├── pptx-diagram/SKILL.md    #   [Proxy] → skills/pptx-diagram/SKILL.md
 │       └── schedule-finder/SKILL.md #   [Proxy] → skills/schedule-finder/SKILL.md
 │
-├── skills/                          # Claude Codeスキル定義（SKILL.md）
-│   ├── ai-cos/                      # AI参謀（構造化・翻訳・壁打ち・棚卸し）
+├── skills/                          # Claude Codeスキル定義（SKILL.md 正本）
+│   ├── ai-cos/                      # AI参謀（構造化・翻訳・壁打ち・棚卸し）※agents/あり
 │   ├── era/                         # AIエージェント時代の施策レビュー
-│   ├── issue/                       # 壁打ち・多視点構造化
+│   ├── issue/                       # 壁打ち・多視点構造化 ※agents/・templates/あり
 │   ├── review/                      # ドキュメントレビュー（issueショートカット）
 │   ├── team-pulse/                  # チームタスク配分・負荷管理・アサイン検討
+│   ├── hiring-agent/                # 採用パイプライン支援（書類選考・面接設計・評価）
+│   ├── schedule-finder/             # OWA空き時間検索プロンプト生成（Claude in Chrome用）
 │   ├── notion-export/               # 壁打ち結果→Notion outbox出力
+│   ├── notion-publish/              # outbox未送信→Notion自動公開
 │   ├── ppt/                         # PPT統合フロー（設計→生成）
 │   ├── pptx-planner/                # PPT設計テンプレ作成
 │   ├── pptx-creator/                # PPTX生成
 │   ├── pptx-reader/                 # PPTX読み取り
-│   └── pptx-diagram/               # draw.io→PNG→PPTXスライド埋め込み
+│   └── pptx-diagram/                # draw.io→PNG→PPTXスライド埋め込み
+│   # 各スキル配下には SKILL.md（必須）／eval.md（評価基準、推奨）／
+│   # agents/・templates/（スキル固有なら任意）を配置する。
 │
 ├── notion/                          # Notion連携ディレクトリ
 │   ├── shared/                      # 組織横断コンテキスト（Notion→ローカル同期）
@@ -61,7 +77,8 @@
 │
 ├── outputs/                         # 全生成物の出力先
 │   ├── pptx/                        # PPT生成物
-│   └── docs/                        # Markdown等テキスト出力
+│   ├── artifacts/                   # HTML・PDF・画像等の閲覧用アーティファクト（MDと峻別）
+│   └── docs/                        # Markdown等テキスト出力（直下に未分類ファイルを置かない）
 │       ├── issues/                  # 課題分析出力
 │       │   ├── organization/        # 体制・役割・チーム設計
 │       │   ├── product/             # プロダクト戦略・機能優先度
@@ -147,11 +164,23 @@
 ### ツール設定系
 
 - **スキル正本** → `skills/{name}/SKILL.md`（Claude Code / Copilot 共用。全スキルの正本はここ）
-- **Claude Codeサブエージェント** → `.claude/agents/{name}.md`
+- **スキル評価基準** → `skills/{name}/eval.md`（推奨。スキル自己最適化ループの根拠になる）
+- **スキル固有サブエージェント** → `skills/{name}/agents/{agent}.md`（任意。ai-cos・issue のみ現状保有）
+- **スキル固有テンプレート** → `skills/{name}/templates/{template}.md`（任意。issue のみ現状保有）
+- **Claude Code 横断サブエージェント** → `.claude/agents/{name}.md`（複数スキルから呼ばれる汎用エージェント）
+- **スラッシュコマンド** → `.claude/commands/{name}.md`（Claude Code の `/` コマンド定義）
 - **Copilot専用スキル** → `.github/skills/{name}/SKILL.md`（notion-cli, notion-create, notion-sync, notion-update の4つのみ）
 - **Copilotプロキシスキル** → `.github/skills/{name}/SKILL.md`（`<!-- PROXY SKILL -->` マーカー付き。正本へのリダイレクトのみ。ロジックを書かない）
 - **Copilotエージェント** → `.github/agents/{name}.md`
 - **Copilot指示** → `.github/copilot-instructions.md`（スキルルーティング・分散防止ルール）
+
+### 命名規則
+
+- **日付プレフィックス**: 成果物（outputs/ 配下）は原則 `YYYY-MM-DD_topic-name.{md,pptx,html}` とする
+- **スクリプト**: `scripts/create_{topic}.js`。リポジトリ内多数派は snake_case。既存に合わせる
+- **コンテキスト系**（assets/context/ 配下）: 日付プレフィックスなし。永続参照資料のため
+- **_index.md**: 各コンテキストディレクトリ直下に目次ファイルを置く
+- **_archive/**・**_logs/**: アンダースコア接頭辞でメタ扱いを明示（ソート上位に出ないよう）
 
 ### その他
 

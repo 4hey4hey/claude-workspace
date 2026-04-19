@@ -163,7 +163,7 @@ PBI Ready（KR②実行計画で定義済み）
 
 ### Q2の「共通基準整備」に組み込む
 
-[FY26年度計画](../../stakeholder/2026-04-04_dm-annual-plan-fy26.md)のQ2マイルストーン「共通基準の整備完了」に、以下を含める：
+[FY26年度計画](../../../assets/context/projects/delivery-mgmt/dm-annual-plan-fy26.md)のQ2マイルストーン「共通基準の整備完了」に、以下を含める：
 
 | 既存の計画（PBI Ready） | 追加する観点（施策Ready）        |
 | ---------------- | ---------------------- |
@@ -191,7 +191,7 @@ PBI Ready（KR②実行計画で定義済み）
 | -------------------------------------------------------------------- | ------------------------- |
 | [PO体制の設計](2026-03-31_po-supply-pipeline.md)                          | PO供給パイプライン。本文書の前作         |
 | [KR②実行計画（GM承認用）](../../stakeholder/2026-04-05_dm-kr2-plan-for-gm.md) | 課題構造（入口品質・フロー・学習）と4つの実行方針 |
-| [FY26年度計画](../../stakeholder/2026-04-04_dm-annual-plan-fy26.md)      | Q別施策・チーム配置・OKRの全体像        |
+| [FY26年度計画](../../../assets/context/projects/delivery-mgmt/dm-annual-plan-fy26.md)      | Q別施策・チーム配置・OKRの全体像        |
 | [PO不在問題の構造分析](2026-03-28_po-function.md)                             | PO業務の分類・PdMとの境界           |
 | [Mission定義（詳細版）](2026-03-28_delivery-management-team-mission.md)     | Mission・行動原則・所管領域・PdM境界   |
 

@@ -5,6 +5,8 @@
 
 > 出典: OKR作成オンライン集合研修（2026年2月）/ 株式会社プレイド STUDIO ZERO
 > 変換元: 260206_OKR実践プログラム_配布用.pdf
+>
+> **関連:** 制度設計・評価プロセス・運用指針は [okr-evaluation-system.md](okr-evaluation-system.md) を参照
 
 ---
 

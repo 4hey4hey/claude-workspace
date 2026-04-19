@@ -1,3 +1,9 @@
+---
+status: "superseded"
+superseded_by: "outputs/docs/stakeholder/2026-04-21_dm-kr2-plan-for-gm.md"
+superseded_at: "2026-04-19"
+---
+
 # KR②実行計画（GM承認用）
 
 > **位置づけ：** DPG 挑戦KR②「高速プロダクト開発の型」の実行計画

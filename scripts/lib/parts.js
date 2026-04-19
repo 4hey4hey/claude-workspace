@@ -91,7 +91,7 @@ function addSlideTitle(slide, pres, theme, opts = {}) {
     y: 0.42,
     w: 9.2,
     h: 0.65,
-    fontSize: 22,
+    fontSize: 18,
     bold: true,
     color: theme.DT,
     fontFace: font.jp,

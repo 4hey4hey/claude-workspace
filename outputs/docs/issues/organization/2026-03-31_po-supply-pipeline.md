@@ -264,9 +264,9 @@ GM承認事項②の一部として、室山さんのGuardians PO候補化を提
 | ドキュメント                                                                                       | 内容                                  |
 | -------------------------------------------------------------------------------------------- | ----------------------------------- |
 | [KR②実行計画（GM承認用）](../../stakeholder/2026-04-05_dm-kr2-plan-for-gm.md)                         | 課題構造（入口品質・フロー・学習）と4つの実行方針。PO配置の承認依頼 |
-| [FY26年度計画](../../stakeholder/2026-04-04_dm-annual-plan-fy26.md)                              | Q別施策・チーム配置・メンバー別重点テーマの全体像           |
+| [FY26年度計画](../../../assets/context/projects/delivery-mgmt/dm-annual-plan-fy26.md)                              | Q別施策・チーム配置・メンバー別重点テーマの全体像           |
 | [GM向け設計判断メモ](../../../../assets/context/projects/delivery-mgmt/dm-gm-plan-design.md)         | 壁打ちで確定した設計判断7項目・GM承認3項目             |
-| [DPG FY26 OKR](../../../../notion/shared/dpg-okr-fy26.md)                                    | デジタルプラットフォームG全体のOKR                 |
+| [DPG FY26 OKR](../../../../assets/context/dpg/dpg-okr-fy26.md)                               | デジタルプラットフォームG全体のOKR                 |
 | [PO不在問題の構造分析](2026-03-28_po-function.md)                                                     | PO専任不在の影響分析・森さん兼務提案                 |
 | [Mission定義（詳細版）](2026-03-28_delivery-management-team-mission.md)                             | Mission・行動原則・所管領域・PdM境界             |
 | [BtoC領域 開発組織拡大方針](../../../../assets/context/projects/delivery-mgmt/org-expansion-policy.md) | のれん分け方式・inet人材活用・組織拡大の3方針           |

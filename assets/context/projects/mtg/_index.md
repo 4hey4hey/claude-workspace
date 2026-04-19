@@ -137,7 +137,7 @@
 - **KR④**: mTG会員数 5xx万（継続）
 - **KR⑤**: mTG経由で 52.1万件送客（GP獲得：電気5.5万、ガス5.75万）
 
-> 出典: `notion/shared/dpg-okr-fy26.md`
+> 出典: `assets/context/dpg/dpg-okr-fy26.md`
 
 ## エージェント時代への示唆
 

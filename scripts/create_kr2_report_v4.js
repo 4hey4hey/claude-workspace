@@ -342,10 +342,10 @@ const OUTPUT = "outputs/pptx/2026-04-16_kr2-report-v4.pptx";
     }
   });
 
-  // カテゴリ・タスク定義
+  // カテゴリ・タスク定義 — 色はネイビー統一（区別はラベル・番号で行う）
   const categories = [
     {
-      label: "計測基盤", color: theme.ACCENTS[0],
+      label: "計測基盤", color: theme.P,
       tasks: [
         { name: "Notion計測ログ整備", start: 0.5, end: 2.5 },
         { name: "Github計測ログ開発（Naikist）", start: 1.5, end: 4 },
@@ -354,7 +354,7 @@ const OUTPUT = "outputs/pptx/2026-04-16_kr2-report-v4.pptx";
       ],
     },
     {
-      label: "入口品質", color: theme.ACCENTS[1],
+      label: "入口品質", color: theme.P,
       tasks: [
         { name: "外部講師レクチャー・課題解決", start: 0.5, end: 2.5 },
         { name: "継続支援・定着", start: 2.5, end: 6 },
@@ -362,14 +362,14 @@ const OUTPUT = "outputs/pptx/2026-04-16_kr2-report-v4.pptx";
       ],
     },
     {
-      label: "フロー効率", color: theme.ACCENTS[2],
+      label: "フロー効率", color: theme.P,
       tasks: [
         { name: "不具合基準整備", start: 0.5, end: 2.5 },
         { name: "Web・ネイティブアプリチーム統合", start: 2.5, end: 6 },
       ],
     },
     {
-      label: "学習ループ", color: "1D8B56",
+      label: "学習ループ", color: theme.P,
       tasks: [
         { name: "ログ運用設計（クリックイベント）", start: 1, end: 3.5 },
         { name: "検証ログ運用開始", start: 3.5, end: 6 },
@@ -460,22 +460,22 @@ const OUTPUT = "outputs/pptx/2026-04-16_kr2-report-v4.pptx";
     {
       num: "①", label: "計測基盤",
       body: "要求が生まれてからリリースするまで、工程別のリードタイムを可視化する仕組みをNotion・Githubにて実装中",
-      color: theme.ACCENTS[0],
+      color: theme.P,
     },
     {
       num: "②", label: "入口品質",
       body: "外部講師を交え、PdM・ビジネス推進メンバーも含めたレクチャーを実施済み。継続支援予定。「小さく作り検証する」開発プロセスのグループ共通認識を持ち、プロセス接続時の認識齟齬を減らす",
-      color: theme.ACCENTS[1],
+      color: theme.P,
     },
     {
       num: "③", label: "フロー効率",
       body: "技術領域別チーム（Web・ネイティブアプリ）から機能横断した「フィーチャーチーム」へシフト準備中。不具合・インシデント発生時の優先順位づけ基準も整備し、意思決定スピードを向上させる",
-      color: theme.ACCENTS[2],
+      color: theme.P,
     },
     {
       num: "④", label: "学習ループ",
       body: "リリース後の結果を記録・計測する仕組みを整備中。リリース後、迅速に効果検証し、次のサイクルの判断に使えるようにする",
-      color: "1D8B56",
+      color: theme.P,
     },
   ];
 

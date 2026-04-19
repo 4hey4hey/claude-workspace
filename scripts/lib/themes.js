@@ -19,8 +19,8 @@ const THEMES = {
     WH: "FFFFFF", // 白
     // テキスト on プライマリ
     TP: "FFFFFF", // プライマリ上のテキスト
-    // アクセント色（カード・段階表示用）
-    ACCENTS: ["2563EB", "7C3AED", "059669", "F97316"],
+    // アクセント色（カード・段階表示用）— ネイビー基調で統一
+    ACCENTS: ["004098", "2563EB", "0891B2", "444466"],
     // セマンティック — 警告
     WARN_BG: "FEF3C7",
     WARN_BD: "F59E0B",
@@ -46,29 +46,29 @@ const THEMES = {
   modern: {
     name: "Modern",
     description: "スタートアップ・新規事業・DX提案",
-    P: "0D4F4F",
-    A: "E85D3A",
-    S: "B2D8D8",
-    CB: "EDF7F7",
-    SF: "F5FAFA",
-    DT: "1A2E2E",
-    ST: "446666",
+    P: "1E40AF", // ディープネイビー（インディゴ700）
+    A: "E85D3A", // オレンジアクセント
+    S: "C7D2FE", // ライトインディゴ — セパレータ
+    CB: "EEF2FF", // カード背景
+    SF: "F5F7FF",
+    DT: "1E293B",
+    ST: "475569",
     WH: "FFFFFF",
     TP: "FFFFFF",
-    ACCENTS: ["0D9488", "E85D3A", "6366F1", "F59E0B"],
+    ACCENTS: ["1E40AF", "0891B2", "475569", "C7D2FE"],
     WARN_BG: "FEF3C7",
     WARN_BD: "F59E0B",
     WARN_TX: "92400E",
-    INFO_BG: "EDF7F7",
-    INFO_BD: "0D4F4F",
-    INFO_TX: "0D4F4F",
+    INFO_BG: "EEF2FF",
+    INFO_BD: "1E40AF",
+    INFO_TX: "1E40AF",
     ERROR_BG: "FEF2F2",
     ERROR_BD: "DC2626",
     ERROR_TX: "DC2626",
     OK_BG: "F0FDF4",
     OK_BD: "059669",
     OK_TX: "065F46",
-    TBL_HEADER_BG: "0D4F4F",
+    TBL_HEADER_BG: "1E40AF",
     TBL_HEADER_TX: "FFFFFF",
     TBL_ROW_BD: "F0F2F5",
   },
@@ -85,7 +85,7 @@ const THEMES = {
     ST: "5D4037",
     WH: "FFFFFF",
     TP: "FFFFFF",
-    ACCENTS: ["BF5B3F", "558B2F", "00796B", "F9A825"],
+    ACCENTS: ["3E2723", "5D4037", "8D6E63", "D7CCC8"],
     WARN_BG: "FEF3C7",
     WARN_BD: "F59E0B",
     WARN_TX: "92400E",
@@ -115,7 +115,7 @@ const THEMES = {
     ST: "475569",
     WH: "FFFFFF",
     TP: "FFFFFF",
-    ACCENTS: ["0EA5E9", "8B5CF6", "10B981", "F97316"],
+    ACCENTS: ["334155", "0EA5E9", "0891B2", "CBD5E1"],
     WARN_BG: "FEF3C7",
     WARN_BD: "F59E0B",
     WARN_TX: "92400E",
@@ -145,7 +145,7 @@ const THEMES = {
     ST: "52525B",
     WH: "FFFFFF",
     TP: "FFFFFF",
-    ACCENTS: ["D97706", "0891B2", "059669", "E11D48"],
+    ACCENTS: ["27272A", "52525B", "0891B2", "E11D48"],
     WARN_BG: "FEF3C7",
     WARN_BD: "D97706",
     WARN_TX: "92400E",
@@ -210,8 +210,8 @@ const THEMES = {
     ST: "666666", // SolidGray.600（サブテキスト）
     WH: "FFFFFF", // White
     TP: "FFFFFF", // プライマリ上のテキスト
-    // アクセント色: Blue.700, Purple.700, Green.700, Orange.700
-    ACCENTS: ["264AF4", "6F23D0", "1D8B56", "E25100"],
+    // アクセント色: Blue.1000, Blue.700, Cyan.700, SolidGray.800（ネイビー基調で統一、オレンジ除外）
+    ACCENTS: ["00118F", "264AF4", "0099E8", "333333"],
     // セマンティック — 警告（Yellow系）
     WARN_BG: "FBF5E0", // Yellow.50 近似
     WARN_BD: "B78F00", // Yellow.700 = Warning.Yellow.1
@@ -246,7 +246,7 @@ const THEMES = {
     ST: "666666", // SolidGray.600
     WH: "FFFFFF",
     TP: "FFFFFF",
-    ACCENTS: ["00118F", "6F23D0", "1D8B56", "E25100"],
+    ACCENTS: ["00118F", "264AF4", "0099E8", "333333"],
     WARN_BG: "FBF5E0",
     WARN_BD: "B78F00",
     WARN_TX: "927200",
