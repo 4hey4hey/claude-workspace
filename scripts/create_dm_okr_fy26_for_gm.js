@@ -181,144 +181,100 @@ function addSoWhat(slide, text, y) {
 }
 
 // ============================================================
-// Slide 5: OKRツリー（O → 挑戦／基盤 → 6KR）【任意】 ← NEW
+// Slide 5: ロジックツリー（問いの形）── 大Q→6KR（全文表示）【任意】
 // ============================================================
 {
   const slide = pres.addSlide();
-  addFrame(slide, BC + "  >  OKRツリー",
-    "Objectiveは挑戦3KR／基盤3KRに分解される ── 6KRは漏れなくObjectiveを支える");
-  addSoWhat(slide, "だから、6KRは意図的な網羅設計であり、分散した寄せ集めではない");
+  addFrame(slide, BC + "  >  ロジックツリー（問いの形）",
+    "Missionを1つの大きな問いに変換し、6つのKRへ展開する（PLAID方式）");
+  addSoWhat(slide, "だから、6KRはMissionを漏れなく分解して導出された意図的な網羅設計である");
 
-  // ── レベル1: Objective（ルート） ──────────────
-  const oY = 1.55, oH = 0.55, oX = 2.0, oW = 6.0;
+  // ── 根（大Q） ────────────────────────────────
+  const rootX = 0.4, rootY = 1.55, rootW = 9.2, rootH = 0.6;
   slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x: oX, y: oY, w: oW, h: oH,
+    x: rootX, y: rootY, w: rootW, h: rootH,
     fill: { color: theme.P }, rectRadius: 0.03,
   });
   slide.addText([
-    { text: "O ", options: { fontSize: 10, color: theme.WH, fontFace: font.jp } },
-    { text: "顧客価値を、正しく・速く・持続的に届けるデリバリーラインを確立する", options: { fontSize: 12, bold: true, color: theme.WH, fontFace: font.jp } },
+    { text: "Q:  ", options: { fontSize: 10, bold: true, color: theme.WH, fontFace: font.jp } },
+    { text: "作る力を価値に変えるために、デリバリーチームは何を実現すべきか？", options: { fontSize: 13, bold: true, color: theme.WH, fontFace: font.jp } },
+    { text: "\n（＝顧客価値を、正しく・速く・持続的に届けるデリバリーラインを、どう確立するか？）", options: { fontSize: 9, italic: true, color: theme.WH, fontFace: font.jp } },
   ], {
-    x: oX, y: oY, w: oW, h: oH,
-    align: "center", valign: "middle", margin: 0,
+    x: rootX + 0.2, y: rootY, w: rootW - 0.4, h: rootH,
+    align: "left", valign: "middle", margin: 0, lineSpacingMultiple: 1.3,
   });
 
-  // 垂直コネクタ（Oの下 → 分岐点）
-  const centerX = oX + oW / 2; // = 5.0
-  const branchY = oY + oH + 0.1; // 2.2
-  const splitY = branchY + 0.18; // 2.38
-  slide.addShape(pres.shapes.RECTANGLE, {
-    x: centerX - 0.01, y: oY + oH, w: 0.02, h: branchY - (oY + oH),
-    fill: { color: theme.P }, line: { color: theme.P },
-  });
-
-  // 水平スプリット線
-  const lX = 2.3, rX = 7.7; // 挑戦／基盤 ノードの中心
-  slide.addShape(pres.shapes.RECTANGLE, {
-    x: lX, y: branchY - 0.01, w: rX - lX, h: 0.02,
-    fill: { color: theme.P }, line: { color: theme.P },
-  });
-  // 両端の垂直ドロップ
-  slide.addShape(pres.shapes.RECTANGLE, {
-    x: lX - 0.01, y: branchY, w: 0.02, h: 0.18,
-    fill: { color: theme.P }, line: { color: theme.P },
-  });
-  slide.addShape(pres.shapes.RECTANGLE, {
-    x: rX - 0.01, y: branchY, w: 0.02, h: 0.18,
-    fill: { color: theme.P }, line: { color: theme.P },
-  });
-
-  // ── レベル2: 挑戦 / 基盤 ──────────────────────
-  const catY = splitY, catH = 0.4, catW = 3.4;
-  const lcX = lX - catW / 2, rcX = rX - catW / 2;
-  // 挑戦
-  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x: lcX, y: catY, w: catW, h: catH,
-    fill: { color: theme.P }, rectRadius: 0.03,
-  });
-  slide.addText("挑戦（速く届ける能力を磨く）", {
-    x: lcX, y: catY, w: catW, h: catH,
-    fontSize: 12, bold: true, color: theme.WH, fontFace: font.jp,
-    align: "center", valign: "middle", margin: 0,
-  });
-  // 基盤
-  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-    x: rcX, y: catY, w: catW, h: catH,
-    fill: { color: theme.ST }, rectRadius: 0.03,
-  });
-  slide.addText("基盤（走り続ける土台を守る）", {
-    x: rcX, y: catY, w: catW, h: catH,
-    fontSize: 12, bold: true, color: theme.WH, fontFace: font.jp,
-    align: "center", valign: "middle", margin: 0,
-  });
-
-  // ── レベル3: 6KR（各カテゴリ下に3つずつ縦スタック） ──
-  const krY = catY + catH + 0.2; // 2.98
-  const krH = 0.68, krGap = 0.08;
-
-  const challengeKRs = [
-    { num: "KR1", title: "入口品質", desc: KR.c1.desc, tag: "見極める／ムダ" },
-    { num: "KR2", title: "フロー効率", desc: KR.c2.desc, tag: "速くする／ムダ" },
-    { num: "KR3", title: "学習ループ", desc: KR.c3.desc, tag: "見極める／ムダ" },
-  ];
-  const foundationKRs = [
-    { num: "KR1", title: "健全性＋開発環境", desc: KR.f1.desc, tag: "守る／ムリ" },
-    { num: "KR2", title: "能力の多面的強化", desc: KR.f2.desc, tag: "強くする／ムラ" },
-    { num: "KR3", title: "事業貢献PDCA", desc: KR.f3.desc, tag: "見極め×強く／外部妥当性" },
+  // ── 6つの分解問い＋対応KR（問い→KR 横並び） ─
+  const items = [
+    { ...KR.c1, question: "開発ラインに流す仕事の質と判断スピードを高め、仕様起因の手戻りと無駄な開発をなくせるか？" },
+    { ...KR.c2, question: "顧客に届くスピードをどう上げるか？" },
+    { ...KR.c3, question: "届けた価値を検証し、学びを次のサイクルにどう反映し続けるか？" },
+    { ...KR.f1, question: "チームが走り続けられる土台と開発環境をどう担保するか？" },
+    { ...KR.f2, question: "デリバリー組織そのものを中長期にどう強くしていくか？" },
+    { ...KR.f3, question: "事業側から見て、このデリバリー機能は本当に価値を生んでいるか？" },
   ];
 
-  function drawKRNode(k, x, y, w, h, borderColor) {
-    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x, y, w, h,
-      fill: { color: theme.CB }, line: { color: borderColor, width: 1 },
-      rectRadius: 0.03,
-    });
-    slide.addText([
-      { text: `${k.num} ${k.title}`, options: { fontSize: 12, bold: true, color: theme.P, fontFace: font.jp } },
-      { text: `\n${k.desc}`, options: { fontSize: 8, color: theme.DT, fontFace: font.jp } },
-      { text: `\n（${k.tag}）`, options: { fontSize: 8, italic: true, color: theme.ST, fontFace: font.jp } },
-    ], {
-      x: x + 0.12, y, w: w - 0.24, h,
-      align: "left", valign: "middle", margin: 0, lineSpacingMultiple: 1.2,
-    });
-  }
+  const trunkX = 0.8;
+  const bH = 0.54, bGap = 0.02;
+  const bStartCenter = 2.45;
+  // 横レイアウト: [問い] → [KR]
+  const qX = 1.1, qW = 4.1;
+  const arrowX = qX + qW + 0.1; // 5.3
+  const arrowW = 0.35;
+  const krX = arrowX + arrowW; // 5.65
+  const krW = 9.6 - krX;        // 3.95
 
-  // 挑戦KRコネクタ（カテゴリ下部→縦スパイン→各KRへ）
-  const lSpineX = lcX + catW / 2; // 挑戦ノード中心 = 2.3
-  const lKrX = lcX; // KRは挑戦と同じ左右位置に配置 → w=3.4
-  // 縦スパイン：カテゴリ下(y=catY+catH) → 最後のKR中心
-  const lastKrCenterY = krY + 2 * (krH + krGap) + krH / 2; // 最後のKR中心
+  // 縦トランク（根下 → 最後の枝中心）
+  const lastCenter = bStartCenter + (items.length - 1) * (bH + bGap);
   slide.addShape(pres.shapes.RECTANGLE, {
-    x: lSpineX - 0.01, y: catY + catH, w: 0.02, h: lastKrCenterY - (catY + catH),
+    x: trunkX - 0.01, y: rootY + rootH, w: 0.02, h: lastCenter - (rootY + rootH),
     fill: { color: theme.P }, line: { color: theme.P },
   });
-  // 各KRへの水平枝（左側）
-  challengeKRs.forEach((k, i) => {
-    const y = krY + i * (krH + krGap);
-    const centerY = y + krH / 2;
-    // 水平コネクタ（スパイン→KR右端）
+
+  items.forEach((k, i) => {
+    const centerY = bStartCenter + i * (bH + bGap);
+    const y = centerY - bH / 2;
+
+    // 横枝線（trunk → 問いボックス左端）
     slide.addShape(pres.shapes.RECTANGLE, {
-      x: lSpineX, y: centerY - 0.01, w: (lKrX + catW) - lSpineX, h: 0.02,
+      x: trunkX, y: centerY - 0.01, w: qX - trunkX, h: 0.02,
       fill: { color: theme.P }, line: { color: theme.P },
     });
-    drawKRNode(k, lKrX, y, catW, krH, theme.P);
-  });
 
-  // 基盤KRコネクタ
-  const rSpineX = rcX + catW / 2; // 7.7
-  const rKrX = rcX;
-  slide.addShape(pres.shapes.RECTANGLE, {
-    x: rSpineX - 0.01, y: catY + catH, w: 0.02, h: lastKrCenterY - (catY + catH),
-    fill: { color: theme.ST }, line: { color: theme.ST },
-  });
-  foundationKRs.forEach((k, i) => {
-    const y = krY + i * (krH + krGap);
-    const centerY = y + krH / 2;
-    slide.addShape(pres.shapes.RECTANGLE, {
-      x: rKrX, y: centerY - 0.01, w: rSpineX - rKrX, h: 0.02,
-      fill: { color: theme.ST }, line: { color: theme.ST },
+    // 問いボックス（左）
+    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+      x: qX, y, w: qW, h: bH,
+      fill: { color: theme.SF }, line: { color: theme.ST, width: 0.75 },
+      rectRadius: 0.02,
     });
-    drawKRNode(k, rKrX, y, catW, krH, theme.ST);
+    slide.addText([
+      { text: `Q${i + 1}  `, options: { fontSize: 9, bold: true, color: theme.P, fontFace: font.jp } },
+      { text: k.question, options: { fontSize: 9, color: theme.DT, fontFace: font.jp } },
+    ], {
+      x: qX + 0.12, y, w: qW - 0.24, h: bH,
+      align: "left", valign: "middle", margin: 0, lineSpacingMultiple: 1.25,
+    });
+
+    // 矢印
+    slide.addText("\u25B6", {
+      x: arrowX, y: centerY - 0.14, w: arrowW, h: 0.28,
+      fontSize: 14, color: theme.A, fontFace: "Arial",
+      align: "center", valign: "middle", margin: 0,
+    });
+
+    // KRボックス（右）
+    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
+      x: krX, y, w: krW, h: bH,
+      fill: { color: theme.CB }, line: { color: theme.P, width: 1 },
+      rectRadius: 0.02,
+    });
+    slide.addText([
+      { text: k.short, options: { fontSize: 11, bold: true, color: theme.P, fontFace: font.jp } },
+      { text: `\n─ ${k.desc}`, options: { fontSize: 9, color: theme.DT, fontFace: font.jp } },
+    ], {
+      x: krX + 0.12, y, w: krW - 0.24, h: bH,
+      align: "left", valign: "middle", margin: 0, lineSpacingMultiple: 1.25,
+    });
   });
 }
 
@@ -473,35 +429,31 @@ function addSoWhat(slide, text, y) {
 }
 
 // ============================================================
-// 共通: 挑戦KR 4ブロック＋先行KPI レイアウト
+// 共通: KR個別スライドのボディ（3カード＋先行KPIストリップ）
 // ============================================================
-function addChallengeKRBody(slide, opts) {
-  const { aim, issue, milestone, plan, kpi } = opts;
-  const gx = [0.4, 5.0];
-  const gy = [1.6, 3.3];
-  const bw = 4.6;
-  const bh = 1.6;
+function addKRBody(slide, opts) {
+  const { aim, milestone, plan, kpi } = opts;
+  const cardsY = 1.6;
+  const cardH = 2.95;
+  const cardGap = 0.2;
+  const cardW = (9.2 - cardGap * 2) / 3;
 
   parts.addCard(slide, pres, theme, {
-    x: gx[0], y: gy[0], w: bw, h: bh,
+    x: 0.4, y: cardsY, w: cardW, h: cardH,
     title: "狙い", body: aim, font,
   });
   parts.addCard(slide, pres, theme, {
-    x: gx[1], y: gy[0], w: bw, h: bh,
-    title: "問題認識", body: issue, accentColor: theme.ERROR_BD, font,
-  });
-  parts.addCard(slide, pres, theme, {
-    x: gx[0], y: gy[1], w: bw, h: bh,
+    x: 0.4 + cardW + cardGap, y: cardsY, w: cardW, h: cardH,
     title: "年度マイルストーン", body: milestone, accentColor: theme.A, font,
   });
   parts.addCard(slide, pres, theme, {
-    x: gx[1], y: gy[1], w: bw, h: bh,
+    x: 0.4 + (cardW + cardGap) * 2, y: cardsY, w: cardW, h: cardH,
     title: "主要施策（FY26）", body: plan, font,
   });
 
-  // 先行KPI（下段1行）
+  // 先行KPIストリップ（下段）
   parts.addAlertBox(slide, pres, theme, {
-    x: 0.4, y: 5.0, w: 9.2, h: 0.4, type: "ok",
+    x: 0.4, y: cardsY + cardH + 0.15, w: 9.2, h: 0.55, type: "ok",
     text: `先行KPI（途中確認指標）：${kpi}`,
     font,
   });
@@ -517,11 +469,10 @@ function addChallengeKRBody(slide, opts) {
   addKRTitle(slide, KR.c1);
   addSoWhat(slide, "だから、人を増やすのではなく仕様・判断・スコープの制御を先に整える（FY28末 DORA High達成、FY26はベースライン確定）", 1.28);
 
-  addChallengeKRBody(slide, {
-    aim: "開発に入る「前」で時間を失うことを止め、\n開発中の手戻りと方向違いの実装を減らす。",
-    issue: "Naikistのデプロイ頻度は1週間。遅さの本質は開発「前後」── 仕様確定遅延、PO判断待ち、並行PJ依存、スコープ膨張。エンジニア人数・技術力ではなく仕様制御の問題。",
-    milestone: "FY26末：ベースライン確定＋手戻り削減の下降トレンド\nFY28末：要件定義→リリース 平均1ヶ月以内（DORA High）、バックログ常時Ready",
-    plan: "・Ready定義を全チーム標準化展開\n・手戻り原因分析の運用開始（仕様／技術／外部）\n・工程・役割の明確化、優先対応基準の整備\n・外部講師レクチャーで継続支援",
+  addKRBody(slide, {
+    aim: "開発に入る「前」で時間を失うことを止め、開発中の手戻りと方向違いの実装を減らす。人を増やすのではなく、仕様・判断・スコープの制御を先に整える。",
+    milestone: "FY26末：\n・ベースライン数値を確定\n・手戻り削減の下降トレンドを示す\n・全チームでReady定義が標準化\n\nFY28末：\n・要件定義→リリース 平均1ヶ月以内（DORA High）\n・仕様起因の手戻りゼロ、バックログ常時Ready",
+    plan: "・Ready定義を全チーム標準化展開\n・手戻り原因分析の運用開始\n　（仕様／技術／外部の3分類）\n・工程・役割の明確化、優先対応基準の整備\n・外部講師レクチャーで「小さく作り検証する」共通認識を継続支援",
     kpi: "Ready定義達成率（PBI全数のうち着手時点でReady）　／　手戻り発生時の原因分類実施率",
   });
 }
@@ -536,11 +487,10 @@ function addChallengeKRBody(slide, opts) {
   addKRTitle(slide, KR.c2);
   addSoWhat(slide, "だから、未安定3チームの型を言語化し、計測で見える化する必要がある（FY28末サイクルタイム DORA High、FY26は全チーム計測稼働）", 1.28);
 
-  addChallengeKRBody(slide, {
-    aim: "着手からリリースまでの流れそのものを\n速く、予測可能にする。",
-    issue: "4チーム中3チームのCT未安定（Fluppuccino／Discovery／Guardians）。PBI粒度、認識合わせ速度、見積精度、改善の回転で成熟度バラつき。リードタイム計測未整備でボトルネックが見えない。",
-    milestone: "FY26末：全チームCT計測稼働、未安定3チームがNaikistレベル（1〜2週）に近づく\nFY28末：CT平均1ヶ月、見積精度90%以上、DORA High到達",
-    plan: "・全チームでサイクルタイム計測導入（Notion／Github）\n・工程リードタイム可視化でボトルネック特定\n・Web/ネイティブをフィーチャーチームに統合\n・優先順位づけ基準の整備（意思決定速度）",
+  addKRBody(slide, {
+    aim: "着手からリリースまでの流れそのものを速く、予測可能にする。未安定3チーム（Fluppuccino／Discovery／Guardians）の型を言語化し、計測で見える化する。",
+    milestone: "FY26末：\n・全チームでサイクルタイム計測稼働\n・未安定3チームがNaikistレベル（1〜2週）に近づく\n\nFY28末：\n・サイクルタイム平均1ヶ月\n・1スプリント見積精度90%以上\n・DORA High レベル到達",
+    plan: "・全チームでサイクルタイム計測導入\n　（Notion／Github計測ログ整備）\n・工程リードタイム可視化でボトルネック特定\n・Web／ネイティブアプリをフィーチャーチームに統合\n・優先順位づけ基準の整備（意思決定速度向上）",
     kpi: "ボトルネック工程の滞留日数（ステージ別内訳）　／　スプリントゴール達成率（80%+目標）　／　PBI粒度分布（1スプリント完了可能サイズの適用率）",
   });
 }
@@ -555,76 +505,29 @@ function addChallengeKRBody(slide, opts) {
   addKRTitle(slide, KR.c3);
   addSoWhat(slide, "だから、成果の方程式の\"精度側\"は、検証を次の投資判断に接続することで実現する（FY28末 検証→次施策反映 平均1ヶ月以内＝DORA High）", 1.28);
 
-  addChallengeKRBody(slide, {
-    aim: "作ったものが顧客価値につながったかを検証し、\n次の投資判断に反映するサイクルを定着させる。",
-    issue: "「作る」までで終わり、検証が次サイクルに接続されない。Krakenのような依存関係が多い案件は前提が変わり手戻り化。打席数を増やすだけでは成果は出ない ── 何に打席を使うかの精度が低ければ打席を無駄にする。",
-    milestone: "FY26末：スプリントレビューに価値検証アジェンダ定着、学習ログ蓄積＋PdM月次FB稼働\nFY28末：検証起因のバックログ変更50%以上、DORA High到達",
-    plan: "・PBIフォーマットに「検証したい仮説／計測指標」を組込\n・開発環境にGoogleAnalytics導入、ドッグフーディング仕組化\n・スプリントレビューで価値検証アジェンダを毎回運用",
-    kpi: "事前検証済みPBI件数　／　検証起因バックログ変更件数　／　ドッグフーディング実施回数",
+  addKRBody(slide, {
+    aim: "作ったものが顧客価値につながったかを検証し、次の投資判断に反映するサイクルを定着させる。リリースして終わりにせず「次にやること／やめること」を決める循環を作る。成果の方程式の\"精度側\"を担うKR。",
+    milestone: "FY26末：\n・全PBIのうち仮説・計測指標記入率 60%以上\n　（Ready定義に組み込み）\n・検証→次施策反映リードタイムの\n　ベースライン計測確定\n・1Q末までに目標設定\n\nFY28末：\n・検証起因のバックログ変更 50%以上\n・DORA High 到達\n　（検証→次施策反映 平均1ヶ月以内）",
+    plan: "・PBIフォーマットに「検証したい仮説／計測指標」を組込\n　仮説→結果→学び→次アクションのテンプレート化\n・Ready定義（挑戦KR1）に仮説記入を組み込み、\n　入口品質と学習ループを接続\n・開発環境にGoogleAnalytics導入、ドッグフーディング仕組化\n　ログ運用設計（Q1 5月）→検証ログ運用開始（Q1 6月）",
+    kpi: "PBI仮説・計測指標記入率（全PBI分母の実施率ベース）　／　検証起因バックログ変更件数　／　ドッグフーディング実施回数",
   });
 }
 
 // ============================================================
-// Slide 13: 基盤KR1 健全性＋開発環境 ／ 基盤KR3 事業貢献PDCA【必須】
+// Slide 13: 基盤KR1 健全性＋開発環境【必須】
 // ============================================================
 {
   const slide = pres.addSlide();
-  addFrame(slide, BC + "  >  基盤KR1／基盤KR3",
-    "健全性＋環境で持続性を担保し、事業貢献PDCAで外部妥当性を確認する");
-  addSoWhat(slide, "だから、内向き（持続性）と外向き（事業側の信頼度）の両方を担保する");
+  parts.addHeader(slide, pres, theme, { breadcrumb: BC + "  >  基盤KR1 健全性＋開発環境", font });
+  parts.addBottomBar(slide, pres, theme);
+  addKRTitle(slide, KR.f1);
+  addSoWhat(slide, "だから、速さの暴走を防ぐ安全装置（DORAサブKPI）＋走り続ける環境を通年で担保する", 1.28);
 
-  const col2W = (9.2 - 0.3) / 2;
-  const colY = 1.65, colH = 3.65;
-
-  const krs = [
-    {
-      kr: KR.f1,
-      body:
-        `─ ${KR.f1.desc}\n\n` +
-        "FY26末（通年維持）：\n" +
-        "・変更失敗率 15%以下\n" +
-        "・開発者満足度 SPACE軸 4.0以上（月次）\n" +
-        "・ITインフラ継続稼働＋ツール棚卸し定常化\n\n" +
-        "主要施策：\n" +
-        "・サブKPI計測基盤整備（変更失敗率自動集計／SPACE月次）\n" +
-        "・月次1on1・健全性スコア・AVD/EDR運用\n\n" +
-        "先行KPI：月次1on1実施率／月次サーベイ回答率",
-    },
-    {
-      kr: KR.f3,
-      body:
-        `─ ${KR.f3.desc}\n\n` +
-        "責任構造：\n" +
-        "・3者共同責任（片山TL・檜垣TL・杉崎TL）\n" +
-        "・FY26 Q1中に詳細KPI整合確定（DPG KR⑦直接受け）\n\n" +
-        "主要施策：\n" +
-        "・1Q・2Q・3Q末に事業側（toC各部）へアンケート／面談\n" +
-        "・振り返りと次Qアクション策定\n" +
-        "・配置メンバーの事業貢献状況を四半期で可視化\n\n" +
-        "先行KPI：四半期振り返り実施率／アンケート・面談カバー率",
-    },
-  ];
-
-  krs.forEach((k, i) => {
-    const cx = 0.4 + i * (col2W + 0.3);
-    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x: cx, y: colY, w: col2W, h: 0.45,
-      fill: { color: theme.P }, rectRadius: 0.03,
-    });
-    slide.addText(k.kr.short, {
-      x: cx, y: colY, w: col2W, h: 0.45,
-      fontSize: 13, bold: true, color: theme.WH, fontFace: font.jp,
-      align: "center", valign: "middle", margin: 0,
-    });
-    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x: cx, y: colY + 0.5, w: col2W, h: colH - 0.5,
-      fill: { color: theme.CB }, rectRadius: 0.03,
-    });
-    slide.addText(k.body, {
-      x: cx + 0.2, y: colY + 0.6, w: col2W - 0.4, h: colH - 0.7,
-      fontSize: 10, color: theme.DT, fontFace: font.jp,
-      align: "left", valign: "top", margin: 0, lineSpacingMultiple: 1.4,
-    });
+  addKRBody(slide, {
+    aim: "挑戦KR1〜3が\"速く届ける能力\"を追うのに対し、基盤KR1はその能力を支える土台を扱う。持続可能に走り続けられる健全性と、働き方を成立させる開発環境（ITインフラ・ツール・オンボーディング）が対象。速さを追うあまりレビュー省略・属人化・恒常残業に陥らないための安全装置も兼ねる。",
+    milestone: "FY26末（通年維持）：\n・変更失敗率 15%以下\n　（リリースのうち障害・ロールバック・\n　　緊急修正に至った割合）\n・開発者満足度 SPACE軸 4.0以上\n　（5段階、月次サーベイで維持）\n・ITインフラ継続稼働\n・開発ツール棚卸しの定常化",
+    plan: "・サブKPI計測基盤の整備\n　変更失敗率の自動集計／\n　開発者満足度SPACE軸の月次サーベイ運用\n・月次1on1（負荷・モチベーション・キャリア）\n・レトロ自己評価による健全性スコア記録\n・AVD／EDRの可用性維持\n・新規参画者オンボーディング\n　（Duke ID／権限／立ち上げ支援）の標準化",
+    kpi: "月次1on1実施率（全メンバー／対象期間内）　／　月次サーベイ回答率",
   });
 }
 
@@ -636,47 +539,36 @@ function addChallengeKRBody(slide, opts) {
   parts.addHeader(slide, pres, theme, { breadcrumb: BC + "  >  基盤KR2 能力の多面的強化", font });
   parts.addBottomBar(slide, pres, theme);
   addKRTitle(slide, KR.f2);
-  addSoWhat(slide, "だから、FY27以降に息切れしない組織能力をFY26末に作る", 1.28);
+  addSoWhat(slide, "だから、FY27以降に息切れしない組織能力を、プロセス・人・基盤の3層でFY26末に作る", 1.28);
 
-  const layers = [
-    { num: "①", title: "プロセス", body: "ふりかえり質向上／スクラム型化／Ready定義運用を全チーム適用。ベテラン暗黙知を言語化。" },
-    { num: "②", title: "人", body: "デリバリーマネージャー採用完了＋次世代リーダー（SM／PO候補）育成。1on1・キャリア設計の専任化。" },
-    { num: "③", title: "基盤", body: "計測基盤全チーム稼働（DPG KR②アプローチ①）／inet発注最適化で費用削減見立て（DPG KR⑥）／KARTE→Braze可否判断完了。" },
-  ];
-  const lY = 1.6, lH = 2.3;
-  const lW = (9.2 - 0.2 * 2) / 3;
-  layers.forEach((l, i) => {
-    const lx = 0.4 + i * (lW + 0.2);
-    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, {
-      x: lx, y: lY, w: lW, h: lH,
-      fill: { color: theme.CB }, line: { color: theme.P, width: 1.5 },
-      rectRadius: 0.03,
-    });
-    slide.addShape(pres.shapes.RECTANGLE, {
-      x: lx + 0.02, y: lY, w: lW - 0.04, h: 0.06,
-      fill: { color: theme.P },
-    });
-    slide.addText(`${l.num}  ${l.title}`, {
-      x: lx + 0.15, y: lY + 0.15, w: lW - 0.3, h: 0.4,
-      fontSize: 16, bold: true, color: theme.P, fontFace: font.jp,
-      align: "left", valign: "top", margin: 0,
-    });
-    slide.addText(l.body, {
-      x: lx + 0.15, y: lY + 0.6, w: lW - 0.3, h: lH - 0.7,
-      fontSize: 12, color: theme.DT, fontFace: font.jp,
-      align: "left", valign: "top", margin: 0, lineSpacingMultiple: 1.5,
-    });
-  });
-
-  parts.addAlertBox(slide, pres, theme, {
-    x: 0.4, y: 4.1, w: 9.2, h: 1.2, type: "info",
-    text: "FY26末達成目標：①プロセス標準化全チーム適用  ②計測基盤全チーム稼働  ③inet費用削減見立て完了  ④KARTE→Braze機能可否判断完了  ⑤DM採用完了",
-    font,
+  addKRBody(slide, {
+    aim: "単年度の運用効率化ではなく、中長期的にデリバリー組織そのものを強くするKR。ベテランの暗黙知依存から抜け出し、FY27〜28にDORA Highレベル到達できる組織状態をFY26末時点で作る。",
+    milestone: "FY26末：\n・プロセス標準化が全チーム適用\n・計測基盤が全チーム稼働\n　（DPG KR②アプローチ①達成）\n・inet費用削減見立て完了\n　（DPG KR⑥貢献）\n・KARTE→Braze機能可否判断完了\n・デリバリーマネージャー（DM）採用完了",
+    plan: "・プロセス標準化の全チーム適用\n　（ふりかえり質向上・スクラム型化・Ready定義）\n・計測基盤の整備（Q1完了目標）\n　Notion→Github計測ログ→ベースライン計測\n・inet発注最適化で費用削減見立て（DPG KR⑥）\n・KARTE→Braze機能可否検証\n・DM採用完了（人面の専任担い手確立）",
+    kpi: "プロセス標準化の適用チーム率　／　DM採用パイプライン進捗（候補者面談数・内定数）　／　計測ダッシュボード稼働チーム数　／　inet費用削減見立て（対26年度比%）　／　KARTE機能検証完了率",
   });
 }
 
 // ============================================================
-// Slide 15: KR間連動図【必須】
+// Slide 15: 基盤KR3 事業貢献PDCA【必須】
+// ============================================================
+{
+  const slide = pres.addSlide();
+  parts.addHeader(slide, pres, theme, { breadcrumb: BC + "  >  基盤KR3 事業貢献PDCA", font });
+  parts.addBottomBar(slide, pres, theme);
+  addKRTitle(slide, KR.f3);
+  addSoWhat(slide, "だから、他5KRが内向きなのに対し、基盤KR3だけが事業側から見た信頼度（外部妥当性）を担保する", 1.28);
+
+  addKRBody(slide, {
+    aim: "挑戦KR1〜3と基盤KR1/2はすべて内向きKR（デリバリー機能の内側）。基盤KR3だけが事業側から見た信頼度を扱う唯一の外向きKR。デリバリーラインの成果が本当に事業価値になっているかを、事業側（toC各部）との四半期振り返りで相互検証する。※DPG KR⑦直接受け／3者共同責任（片山TL・檜垣TL・杉崎TL）",
+    milestone: "FY26末：\n・配置メンバーの事業貢献について、\n　事業側（toC各部）との四半期振り返りで\n　相互納得が形成されている状態\n\nFY26 Q1中：\n・3者（片山TL・檜垣TL・杉崎TL）で\n　詳細KPI整合を確定",
+    plan: "・1Q・2Q・3Q末に事業側（toC各部）へ\n　アンケート／面談を実施\n・振り返りと次Qアクションプランを策定\n・配置メンバーの事業貢献状況を\n　四半期ごとに見える化\n・3者共同運営の仕組みを設計\n・詳細KPIをQ1中に3者で確定",
+    kpi: "四半期振り返り実施率（計画通り1Q・2Q・3Q末に実施できたか）　／　アンケート・面談カバー率（配置メンバー・事業側双方で対象者をカバーできたか）",
+  });
+}
+
+// ============================================================
+// Slide 16: KR間連動図【必須】
 // ============================================================
 {
   const slide = pres.addSlide();
@@ -754,7 +646,7 @@ function addChallengeKRBody(slide, opts) {
 }
 
 // ============================================================
-// Slide 16: 別論点①Mission外Corp兼務業務（議題化）【必須】
+// Slide 17: 別論点①Mission外Corp兼務業務（議題化）【必須】
 // ============================================================
 {
   const slide = pres.addSlide();
@@ -804,7 +696,7 @@ function addChallengeKRBody(slide, opts) {
 }
 
 // ============================================================
-// Slide 17: 別論点②Kraken PdM不在 + 次の一手【必須】
+// Slide 18: 別論点②Kraken PdM不在 + 次の一手【必須】
 // ============================================================
 {
   const slide = pres.addSlide();
